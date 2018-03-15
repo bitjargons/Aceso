@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="thumbnail">
+      <div class="caption-full">
+        <h4><%= post.symptom %></h4>
+        <p><%= post.description %></p>
+        <% post.links.forEach(function(link) { %>
+          <a href="<%= link.url %>"><%= link.title %></a>
+        <% }); %>
+        <form action="/disorders/<%= post.parent.id %>/posts/<%= post._id %>/addlink" method="POST">
+          <input type="text" name="link[url]" placeholder="url">
+          <input type="text" name="link[title]" placeholder="title">
+          <button class="btn btn-primary">Add Link</button>
+        </form>
+        <!-- <form class="delete-form" action="/posts/<%= post._id %>/posts/new" method="POST">
+          <button class="btn btn-primary">Add New Post</button>
+        </form> -->
+        <!-- <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %> -->
+        <!--   <% } %> -->
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>
