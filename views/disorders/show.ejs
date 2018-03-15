@@ -1,51 +1,49 @@
 <% include ../partials/header %>
-<div class="row">
-  <div class="col-md-3">
-    <p class="lead">YelpCamp</p>
-    <div class="list-group">
-      <li class="list-group-item active">Info 1</li>
-      <li class="list-group-item">Info 2</li>
-      <li class="list-group-item">Info 3</li>
-    </div>
-    <div id="map"></div>
-  </div>
-  <div class="col-md-9">
-    <div class="thumbnail">
-      <img class="img-responsive" src="<%= disorder.image %>">
-      <div class="caption-full">
-        <h4><%= disorder.name %></h4>
-        <p><%= disorder.description %></p>
-        <a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit">Edit</a>
-        <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
-          <button class="btn btn-danger">Delete</button>
-        </form>
-        <a class="btn btn-primary" href="/disorders/<%= disorder._id %>/posts/new">Add New Post</a>
-        <!-- <form class="delete-form" action="/disorders/<%= disorder._id %>/posts/new" method="POST">
-          <button class="btn btn-primary">Add New Post</button>
-        </form> -->
-        <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-        <% //} %>
-      </div>
-    </div>
-    <div class="well">
-      <div class="row text-center" style="display: flex; flex-wrap: wrap;">
-        <% if (disorder.posts.length === 0) { %>
-          <em style="color: grey;">No posts yet.</em>
-        <% } %>
-        <% disorder.posts.forEach(function(post) { %>
-          <div class="col-md-3 col-sm-6">
-            <div class="thumbnail">
-              <div class="caption">
-                <h4><%= disorder.posts.question %></h4>
-              </div>
-              <p>
-                <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class="btn btn-primary">More Info</a>
-              </p>
-            </div>  
-          </div>
-        <% }); %>
-      </div>
-    </div>
-  </div>
+
+<div class="container">
+	<ul class="nav nav-pills">
+	  <li role="presentation" class="active"><a href="#">Depression</a></li>
+	  <li role="presentation"><a href="#">Anxiety</a></li>
+	  <li role="presentation"><a href="#">Stress</a></li>
+	</ul>
+	<hr>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<%= disorder.name %>
+					<a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit"><span class="glyphicon glyphicon-pencil"></a>
+	        <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+	          <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+	        </form>
+				</div>
+				<div class="panel-body">
+					<img class="img-responsive" src="<%= disorder.image %>">
+		      <div class="caption-full">
+		      	<b>Info:</b>
+		        <p><%= disorder.description %></p>
+		        <a href="/disorders/<%= disorder._id %>/posts/new" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add a Post</a>
+		        <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+		        <% //} %>
+		      </div>
+				</div>
+	    </div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row" style="display: flex; flex-wrap: wrap;">
+				<% if (disorder.posts.length === 0) { %>
+					<div class="alert alert-danger" role="alert">Oops! Looks like there are no posts yet!</div>
+				<% } %>
+				<% disorder.posts.forEach(function(post) { %>
+				  <div class="col-xs-6">
+				    <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class="thumbnail posts">
+				      <%= post.symptom %>
+				    </a>
+				  </div>
+				 <% }); %>
+			</div>
+		</div>
+	</div>
 </div>
+
 <% include ../partials/footer %>

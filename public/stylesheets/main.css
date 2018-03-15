@@ -7,6 +7,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: 'Ubuntu', sans-serif;
 }
 .footer {
   position: absolute;
@@ -47,14 +48,33 @@ body {
 
 /* Flexbox grid fix */
 .flex-wrap {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
 }
 
 .posts {
   padding: 20px;
+  height: 90%;
 }
 .posts:hover {
   background: #337ab7;
   color: white;
+  text-decoration: none;
+  transform: scale(1.08);
+  text-transform: capitalize;
+}
+
+.panel-heading {
+  font-size: 1.6em;
+}
+
+.panel-body {
+  font-size: 1.2em;
+}
+
+.footnotes {
+  bottom: 0;
+  width: 100%;
+  padding: 8px;
+  background-color: #f5f5f5;
 }
