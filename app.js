@@ -20,12 +20,13 @@ require('dotenv').load();
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
     memoirRoutes     = require("./routes/memoirs"),
-    disorderRoutes   = require("./routes/disorders")
+    postRoutes       = require("./routes/posts")
+    disorderRoutes   = require("./routes/disorders"),
     indexRoutes      = require("./routes/index"),
     userRoutes       = require("./routes/user")
 
 // assign mongoose promise library and connect to database
-const databaseUri = 'mongodb://localhost/aceso_v11';
+const databaseUri = 'mongodb://localhost/aceso_post';
 
 mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
@@ -64,8 +65,9 @@ app.use(function(req, res, next){
 
 app.use("/", indexRoutes);
 app.use("/memoirs", memoirRoutes);
-app.use("/disorders", disorderRoutes);
 app.use("/memoirs/:id/comments", commentRoutes);
+app.use("/disorders", disorderRoutes);
+app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
 
 

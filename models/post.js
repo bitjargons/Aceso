@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var postSchema = new mongoose.Schema({
-   question: String,
+   symptom: String,
    description: String,
    links: [
       {
@@ -14,7 +14,7 @@ var postSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: "Disorder"
         },
-        disorder: String
+    disorder: String
    }
 });
 
