@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <h1 style="text-align: center">Add New Post to <%= disorder.name %></h1>
+    <div style="width: 30%; margin: 25px auto;">
+        <form action="/disorders/<%= disorder._id %>/posts" method="POST">
+            <div class="form-group">
+                <input class="form-control" type="text" name="post[symptom]" placeholder="symptom">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="post[description]" placeholder="details">
+            </div>
+            <!-- <div class="form-group">
+                <input class="form-control" type="text" name="post[text]" placeholder="text">
+            </div> -->
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+            </div>
+        </form>
+        <a href="/disorders">Go Back</a>
+    </div>
+</div>
+<% include ../partials/footer %>
+

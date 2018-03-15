@@ -19,9 +19,10 @@
         <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
           <button class="btn btn-danger">Delete</button>
         </form>
-        <form class="delete-form" action="/disorders/<%= disorder._id %>/posts" method="POST">
+        <a class="btn btn-primary" href="/disorders/<%= disorder._id %>/posts/new">Add New Post</a>
+        <!-- <form class="delete-form" action="/disorders/<%= disorder._id %>/posts/new" method="POST">
           <button class="btn btn-primary">Add New Post</button>
-        </form>
+        </form> -->
         <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
         <% //} %>
       </div>
