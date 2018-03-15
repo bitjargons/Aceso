@@ -50,3 +50,11 @@ body {
   display:flex;
   flex-wrap: wrap;
 }
+
+.posts {
+  padding: 20px;
+}
+.posts:hover {
+  background: #337ab7;
+  color: white;
+}
