@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">YelpCamp</p>
+    <div class="list-group">
+      <li class="list-group-item active">Info 1</li>
+      <li class="list-group-item">Info 2</li>
+      <li class="list-group-item">Info 3</li>
+    </div>
+    <div id="map"></div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= disorder.image %>">
+      <div class="caption-full">
+        <h4><%= disorder.name %></h4>
+        <p><%= disorder.description %></p>
+        <a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit">Edit</a>
+        <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+        <form class="delete-form" action="/disorders/<%= disorder._id %>/posts" method="POST">
+          <button class="btn btn-primary">Add New Post</button>
+        </form>
+        <!-- <% if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %> -->
+        <!--   <% } %> -->
+      </div>
+    </div>
+    <div class="well">
+      <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+        <% if (disorder.posts.length === 0) { %>
+          <em style="color: grey;">No posts yet.</em>
+        <% } %>
+        <% disorder.posts.forEach(function(post) { %>
+          <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+              <div class="caption">
+                <h4><%= disorder.posts.question %></h4>
+              </div>
+              <p>
+                <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class="btn btn-primary">More Info</a>
+              </p>
+            </div>  
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>
