@@ -26,7 +26,7 @@ var commentRoutes    = require("./routes/comments"),
     userRoutes       = require("./routes/user")
 
 // assign mongoose promise library and connect to database
-const databaseUri = process.env.DB_LINK;
+const databaseUri = process.env.DB_LINK || "mongodb://localhost/yelp_camp_v11";
 
 mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
@@ -71,6 +71,6 @@ app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
 
 
-app.listen("7890", function(){
-   console.log("The Aceso Server Has Started!");
+app.listen(process.env.PORT || "7890", process.env.IP, function(PORT){
+  console.log("Server Started");
 });
