@@ -1,10 +1,20 @@
 <% include ../partials/header %>
 <div class="row">
   <div class="col-md-12">
-    <div class="thumbnail">
-      <div class="caption-full">
-        <h4><%= post.symptom %></h4>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= post.symptom %>
+
+        <a class="btn btn-warning" href="/disorders/<%= disorder_id %>/posts/<%= post._id %>/edit"><span class="glyphicon glyphicon-pencil"></a>
+        <form action="/disorders/<%= disorder_id %>/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+        <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+        </form>
+      </div>
+      
+      <div class="panel-body">
         <p><%= post.description %></p>
+      </div>
+      <div class="footnotes">
         <% post.links.forEach(function(link) { %>
           <a href="<%= link.url %>"><%= link.title %></a>
         <% }); %>
@@ -13,11 +23,6 @@
           <input type="text" name="link[title]" placeholder="title">
           <button class="btn btn-primary">Add Link</button>
         </form>
-        <!-- <form class="delete-form" action="/posts/<%= post._id %>/posts/new" method="POST">
-          <button class="btn btn-primary">Add New Post</button>
-        </form> -->
-        <!-- <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %> -->
-        <!--   <% } %> -->
       </div>
     </div>
   </div>
