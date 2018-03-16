@@ -2,9 +2,9 @@
 
 <div class="container">
 	<ul class="nav nav-pills">
-	  <li role="presentation" class="active"><a href="#">Depression</a></li>
-	  <li role="presentation"><a href="#">Anxiety</a></li>
-	  <li role="presentation"><a href="#">Stress</a></li>
+		<% disorders.forEach(function(eachDisorder) { %>
+			<li role="presentation" class="<%= typeof disorder !== 'undefined' && disorder.name === eachDisorder.name ? 'active' : '' %>"><a href="/disorders/<%= eachDisorder._id %>"> <%= eachDisorder.name %> </a></li>
+		<% }) %>
 	</ul>
 	<hr>
 	<div class="row">
@@ -23,8 +23,8 @@
 		      	<b>Info:</b>
 		        <p><%= disorder.description %></p>
 		        <a href="/disorders/<%= disorder._id %>/posts/new" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add a Post</a>
-		        <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-		        <% //} %>
+		        <!-- <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+		        <% //} %> -->
 		      </div>
 				</div>
 	    </div>

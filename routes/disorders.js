@@ -42,7 +42,11 @@ router.post("/", function(req,res) {
 //SHOW 
 router.get("/:id", function(req, res){
     //find the Disorder with provided ID
-    Disorder.findById(req.params.id).populate("posts").exec(function(err, foundDisorder){
+  Disorder.find({}, function(err, alldisorders){
+    if(err){
+      console.log(err);
+    } else {
+      Disorder.findById(req.params.id).populate("posts").exec(function(err, foundDisorder){
         if(err || !foundDisorder){
             console.log(err);
             req.flash('error', 'Sorry, that disorder does not exist!');
@@ -50,9 +54,11 @@ router.get("/:id", function(req, res){
         } else {
             // console.log(foundDisorder)
             //render show template with that Disorder
-            res.render("disorders/show", {disorder: foundDisorder});
+            res.render("disorders/show", {disorders: alldisorders,disorder: foundDisorder});
         }
-    });
+      });
+    }
+  });
 });
 
 //EDIT Disorder ROUTE
