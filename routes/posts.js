@@ -3,10 +3,10 @@ var router  = express.Router({mergeParams: true});
 var Disorder = require("../models/disorder");
 var Post = require("../models/post");
 var middleware = require("../middleware");
-var { isLoggedIn, checkUserPost, isAdmin } = middleware;
+
 
 //NEW
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
     // find disorder by id
     Disorder.findById(req.params.id, function(err, disorder){
       if(err){
@@ -18,7 +18,7 @@ router.get("/new", function(req, res){
 });
 
 //CREATE
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
    //lookup disorder using ID
    Disorder.findById(req.params.id, function(err, disorder){
      if(err){
@@ -48,7 +48,7 @@ router.post("/", function(req, res){
 });
 
 //SHOW
-router.get("/:post_id", function(req, res){
+router.get("/:post_id", middleware.isLoggedIn, function(req, res){
     //find the Disorder with provided ID
     Post.findById(req.params.post_id, function(err, foundPost){
         if(err || !foundPost){
@@ -62,7 +62,7 @@ router.get("/:post_id", function(req, res){
 });
 
 //EDIT
-router.get("/:post_id/edit", function(req, res){
+router.get("/:post_id/edit", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
    Disorder.findById(req.params.id, function(err, foundDisorder){
       if(err || !foundDisorder) {
         req.flash("error", "No disorder found");
@@ -80,7 +80,7 @@ router.get("/:post_id/edit", function(req, res){
 });
 
 //UPDATE
-router.put("/:post_id", function(req, res){
+router.put("/:post_id", middleware.isLoggedIn, middleware.isAdmin ,function(req, res){
    Post.findByIdAndUpdate(req.params.post_id, req.body.post, function(err, updatedPost){
       if(err){
           res.redirect("back");

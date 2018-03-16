@@ -1,5 +1,8 @@
 var Memoir = require("../models/memoir");
 var Comment = require("../models/comment");
+var User = require("../models/user");
+var Disorder = require("../models/disorder");
+var Post = require("../models/disorder");
 
 module.exports = {
   isLoggedIn: function(req, res, next) {

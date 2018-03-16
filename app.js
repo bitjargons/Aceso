@@ -26,7 +26,7 @@ var commentRoutes    = require("./routes/comments"),
     userRoutes       = require("./routes/user")
 
 // assign mongoose promise library and connect to database
-const databaseUri = 'mongodb://localhost/aceso_post';
+const databaseUri = process.env.DB_LINK;
 
 mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
@@ -45,7 +45,7 @@ app.locals.moment = require('moment');
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
+    secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false
 }));

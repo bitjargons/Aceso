@@ -4,10 +4,8 @@ var Disorder = require("../models/disorder");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
-// var { isLoggedIn, checkUserDisorder, checkUserPost, isAdmin } = middleware;
-
 //INDEX
-router.get("/", function(req, res) {
+router.get("/", middleware.isLoggedIn ,function(req, res) {
 		// Get all disorders from DB
     Disorder.find({}, function(err, alldisorders){
        	if(err){
@@ -19,12 +17,12 @@ router.get("/", function(req, res) {
 });
 
 //NEW - show form to create new Disorder
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
    res.render("disorders/new"); 
 });
 
 //CREATE - add new disorder to data base
-router.post("/", function(req,res) {
+router.post("/", middleware.isLoggedIn, middleware.isAdmin ,function(req,res) {
 		//get data from form and add to disorders array
     var name = req.body.name;
     var image = req.body.image;
@@ -40,7 +38,7 @@ router.post("/", function(req,res) {
 });
 
 //SHOW 
-router.get("/:id", function(req, res){
+router.get("/:id", middleware.isLoggedIn ,function(req, res){
     //find the Disorder with provided ID
   Disorder.find({}, function(err, alldisorders){
     if(err){
@@ -62,7 +60,7 @@ router.get("/:id", function(req, res){
 });
 
 //EDIT Disorder ROUTE
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", middleware.isLoggedIn, middleware.isAdmin,function(req, res){
   Disorder.findById(req.params.id, function(err, foundDisorder){
     if (err) {
       console.log(err);    
@@ -73,7 +71,7 @@ router.get("/:id/edit", function(req, res){
 });
 
 // UPDATE Disorder ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
     // find and update the correct Disorder
     // console.log(req.body.disorder);
     Disorder.findByIdAndUpdate(req.params.id, req.body.disorder, function(err, updatedDisorder){
@@ -88,7 +86,7 @@ router.put("/:id", function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", function(req, res) {
+router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
 	//   Post.remove({
 	//       _id: {

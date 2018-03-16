@@ -53,12 +53,12 @@ router.get("/login", function(req, res){
 
 //handling login logic
 router.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/home",
-        failureRedirect: "/login",
-        failureFlash: true,
-        successFlash: 'Welcome to Aceso!'
-    }), function(req, res){
+  {
+      successRedirect: "/home",
+      failureRedirect: "/login",
+      failureFlash: true,
+      successFlash: 'Welcome to Aceso!'
+  }), function(req, res){
 });
 
 // logout route
@@ -100,8 +100,8 @@ router.post('/forgot', function(req, res, next) {
         service: 'gmail',
         host: 'smtp.gmail.com',
         auth: {
-          user: 'jayesh.pro.1697@gmail.com',
-          pass: 'jayesh.pro'
+          user: process.env.EMAIL,
+          pass: process.env.EMAIL_PASSWORD
         }
       });
       var mailOptions = {
@@ -121,7 +121,7 @@ router.post('/forgot', function(req, res, next) {
     }
   ], function(err) {
     if (err) return next(err);
-    res.redirect('/forgot');
+      res.redirect('/forgot');
   });
 });
 
@@ -164,8 +164,8 @@ router.post('/reset/:token', function(req, res) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
         auth: {
-          user: 'jayesh.pro.1697@gmail.com',
-          pass: 'jayesh.pro'
+          user: process.env.EMAIL,
+          pass: process.env.EMAIL_PASSWORD
         }
       });
       var mailOptions = {
@@ -184,8 +184,5 @@ router.post('/reset/:token', function(req, res) {
     res.redirect('/home');
   });
 });
-
-
-
 
 module.exports = router;
