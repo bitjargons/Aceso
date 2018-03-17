@@ -12,6 +12,7 @@ var express     = require("express"),
     Comment     = require("./models/comment"),
     Disorder = require("./models/disorder"),
     Post = require("./models/post"),
+    timeout = require('connect-timeout'),
     seedDB      = require("./seeds")
     
 // configure dotenv
@@ -32,11 +33,14 @@ mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
 
+app.use(timeout('5s'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(haltOnTimedout);
 app.use(cookieParser('secret'));
+app.use(haltOnTimedout);
 app.use(flash());
 
 //require moment
@@ -70,6 +74,9 @@ app.use("/disorders", disorderRoutes);
 app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
 
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
 
 app.listen(process.env.PORT || "7890", process.env.IP, function(PORT){
   console.log("Server Started");
