@@ -34,7 +34,7 @@ mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
 
-app.use(timeout('5s'));
+app.use(timeout('30s'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
