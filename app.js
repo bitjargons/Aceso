@@ -1,4 +1,5 @@
 var express     = require("express"),
+		SessionStore = require('session-mongoose')(express),
     app         = express(),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
@@ -13,7 +14,8 @@ var express     = require("express"),
     Disorder = require("./models/disorder"),
     Post = require("./models/post"),
     timeout = require('connect-timeout'),
-    seedDB      = require("./seeds")
+    seedDB      = require("./seeds"),
+    session = require("express-session");
     
 // configure dotenv
 require('dotenv').load();
@@ -27,6 +29,7 @@ var commentRoutes    = require("./routes/comments"),
     userRoutes       = require("./routes/user")
 
 // assign mongoose promise library and connect to database
+mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGOLAB_URL;
 console.log(process.env.MONGOLAB_URL);
 
@@ -49,11 +52,15 @@ app.locals.moment = require('moment');
 // seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: process.env.PASSPORT_SECRET,
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(
+  express.session({
+    store: new SessionStore({
+    url: process.env.MONGOLAB_URL,
+    interval: 1200000
+  }),
+  cookie: { maxAge: 1200000 },
+  secret: process.env.PASSPORT_SECRET
+}))
 
 app.use(passport.initialize());
 app.use(passport.session());
