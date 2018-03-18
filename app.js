@@ -27,8 +27,8 @@ var commentRoutes    = require("./routes/comments"),
     userRoutes       = require("./routes/user")
 
 // assign mongoose promise library and connect to database
-const databaseUri = process.env.DB_LINK;
-console.log(process.env.DB_LINK);
+const databaseUri = process.env.MONGOLAB_URL;
+console.log(process.env.MONGOLAB_URL);
 
 mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
