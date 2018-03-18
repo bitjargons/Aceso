@@ -28,36 +28,11 @@ var commentRoutes    = require("./routes/comments"),
 
 // assign mongoose promise library and connect to database
 const databaseUri = process.env.DB_LINK;
-// console.log(process.env.DB_LINK);
-var options = { 
-	server: { 
-		socketOptions: 
-			{ 
-				keepAlive: 300000,
-				connectTimeoutMS: 30000
-			}
-	}, 
-  replset: { 
-  	socketOptions: 
-  		{ 
-  			keepAlive: 300000, 
-  			connectTimeoutMS : 30000
-  		}
-  	}
-  };       
+console.log(process.env.DB_LINK);
 
-
-mongoose.connect(databaseUri, options)
+mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
-
-var conn = mongoose.connection;             
-
-conn.on('error', console.error.bind(console, 'connection error:'));  
-
-conn.once('open', function() {
-  // Wait for the database connection to establish, then start the app.                         
-});
 
 app.use(timeout('5s'));
 app.use(bodyParser.urlencoded({extended: true}));
