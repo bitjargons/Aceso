@@ -69,7 +69,7 @@ router.post('/users/:id/verify', function(req, res, next) {
         subject: 'Aceso Account Verification',
         text: 'You are receiving this because you (or someone else) have requested to fill the details of your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/details/' + token + '\n\n' +
+          'http://' + req.headers.host + '/users/' + user._id + '/details/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
