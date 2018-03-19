@@ -90,7 +90,7 @@ router.get('/users/:id/details/:token', function(req, res) {
       req.flash('error', 'Fill Details token is invalid or has expired.');
       return res.redirect('back');
     }
-    res.render('details', {id: req.params.id,token: req.params.token});
+    res.render('users/details', {id: req.params.id,token: req.params.token});
   });
 });
 
