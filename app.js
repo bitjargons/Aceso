@@ -82,6 +82,6 @@ function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
-app.listen(process.env.PORT || "7890", process.env.IP, function(PORT){
-  console.log("Server Started");
+app.listen(process.env.PORT || 7890, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
