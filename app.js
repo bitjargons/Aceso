@@ -1,30 +1,30 @@
-var express     = require("express"),
-    app         = express(),
-    bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose"),
-    flash       = require("connect-flash"),
-    passport    = require("passport"),
-    cookieParser = require("cookie-parser"),
-    LocalStrategy = require("passport-local"),
-    methodOverride = require("method-override"),
-    User        = require("./models/user"),
-    Memoir  = require("./models/memoir"),
-    Comment     = require("./models/comment"),
-    Disorder = require("./models/disorder"),
-    Post = require("./models/post"),
-    timeout = require('connect-timeout'),
-    seedDB      = require("./seeds")
+var express         = require("express"),
+    app             = express(),
+    bodyParser      = require("body-parser"),
+    mongoose        = require("mongoose"),
+    flash           = require("connect-flash"),
+    passport        = require("passport"),
+    cookieParser    = require("cookie-parser"),
+    LocalStrategy   = require("passport-local"),
+    methodOverride  = require("method-override"),
+    User            = require("./models/user"),
+    Memoir          = require("./models/memoir"),
+    Comment         = require("./models/comment"),
+    Disorder        = require("./models/disorder"),
+    Post            = require("./models/post"),
+    timeout         = require('connect-timeout'),
+    seedDB          = require("./seeds")
     
 // configure dotenv
 require('dotenv').load();
 
 //requiring routes
-var commentRoutes    = require("./routes/comments"),
-    memoirRoutes     = require("./routes/memoirs"),
-    postRoutes       = require("./routes/posts")
-    disorderRoutes   = require("./routes/disorders"),
-    indexRoutes      = require("./routes/index"),
-    userRoutes       = require("./routes/user")
+var commentRoutes   = require("./routes/comments"),
+    memoirRoutes    = require("./routes/memoirs"),
+    postRoutes      = require("./routes/posts")
+    disorderRoutes  = require("./routes/disorders"),
+    indexRoutes     = require("./routes/index"),
+    userRoutes      = require("./routes/user")
 
 // assign mongoose promise library and connect to database
 const databaseUri = process.env.MONGOLAB_URL;
