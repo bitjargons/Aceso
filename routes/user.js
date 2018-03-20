@@ -23,9 +23,13 @@ router.get("/users/:id", function(req, res) {
 router.get('/users/:id/verify', function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {
+      console.log(err+"Something");
       req.flash("error", "Something went wrong");
       res.redirect("/");
     } else {
+      if(foundUser.isVerified) {
+        res.render('index', {page: "home"})
+      }
       res.render('users/verify', {user: foundUser});
     }
   })
@@ -107,6 +111,7 @@ router.post('/users/:id/details/:token', function(req, res) {
             user.fillDetailsToken = 	undefined;
             user.fillDetailsExpires = undefined;
             user.details = req.body.details;
+            user.isVerified = true;
             user.save(function(err) {
               req.logIn(user, function(err) {
                 done(err, user);

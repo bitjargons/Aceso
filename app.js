@@ -12,8 +12,8 @@ var express         = require("express"),
     Comment         = require("./models/comment"),
     Disorder        = require("./models/disorder"),
     Post            = require("./models/post"),
-    timeout         = require('connect-timeout'),
-    seedDB          = require("./seeds")
+    timeout         = require('connect-timeout')
+    // seedDB          = require("./seeds")
     
 // configure dotenv
 require('dotenv').load();
