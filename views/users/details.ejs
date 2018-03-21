@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+<div class="row">
+	<div class="col-md-12">
+		<form action="/users/<%= id %>/details/<%= token %>" method="POST">
+		  <legend>Add Details</legend>
+		  <div class="form-group">
+		    <label for="username">Username</label>
+		    <input type="text" name="details[username]" placeholder="username" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="avatar">Avatar Url</label>
+		    <input type="text" name="details[avatar]" placeholder="avatar" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="firstName">First Name</label>
+		    <input type="text" name="details[firstName]" placeholder="username" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastName">Last Name</label>
+		    <input type="text" name="details[lastName]" placeholder="username" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="username">Description</label>
+		    <input type="text" name="details[description]" placeholder="username" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="password">New Password</label>
+		    <input type="password" name="password" value="" placeholder="New password" autofocus="autofocus" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <label for="confirm">Confirm Password</label>
+		    <input type="password" name="confirm" value="" placeholder="Confirm password" class="form-control"/>
+		  </div>
+		  <div class="form-group">
+		    <button type="submit" class="btn btn-primary">Update Profile</button>
+		  </div>
+		</form>
+	</div>
+</div>
+<% include ../partials/footer %>
