@@ -1,8 +1,148 @@
-<% include ./partials/header %>
-<header class="jumbotron">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Aceso</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/stylesheets/main.css">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" href="/home">Aceso</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="<%= typeof page !== 'undefined' && page === 'memoirs' ? 'active' : '' %>"><a href="/memoirs">Memoirs</a></li>
+              <li class="<%= typeof page !== 'undefined' && page === 'disorders' ? 'active' : '' %>"><a href="/disorders">Articles</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!currentUser){ %>
+                    <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+                <% } else { %>
+                    <li><a href="/users/<%= currentUser._id %>">Signed In As <%= currentUser.username %></a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+            </ul>
+          </div>
+      </div>
+  </nav>
+  
+  <div class="container">
+     <% if(error && error.length > 0) { %>
+       <div class="alert alert-danger"><p><%=error %></p></div>
+     <% } %>
+     
+     <% if(success && success.length > 0) { %>
+       <div class="alert alert-success"><p><%= success %></p></div>
+     <% } %>
+  </div>
+
+<!-- <header class="jumbotron">
 	<div class="container">
 		<h1>Welcome</h1>
 		<p>Aceso : We change Life!!!</p>
 	</div>
-</header>
-<% include ./partials/footer %>
+</header> -->
+
+<!-- Corousel Starts Here -->
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Carousel indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>   
+    <!-- Wrapper for carousel items -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="http://wowslider.com/sliders/demo-93/data1/images/lake.jpg" class="img-responsive center-block" alt="First Slide">
+            <div class="container">
+            	<div class="carousel-caption">
+            		<h1>Aceso</h1>
+            		<p>We provide help to students.
+            		</p>
+            		<p>
+            			<a class="btn btn-lg btn-primary" href="#">
+            				Take a Test.
+            			</a>
+            		</p>
+            	</div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://wowslider.com/sliders/demo-93/data1/images/lake.jpg" class="img-responsive center-block" alt="Second Slide">
+            <div class="container">
+            	<div class="carousel-caption">
+            		<h1>Aceso</h1>
+            		<p>We provide help to students.
+            		</p>
+            		<p>
+            			<a class="btn btn-lg btn-primary" href="#">
+            				About this program
+            			</a>
+            		</p>
+            	</div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://wowslider.com/sliders/demo-93/data1/images/lake.jpg" class="img-responsive center-block" alt="Third Slide">
+            <div class="container">
+            	<div class="carousel-caption">
+            		<h1>Aceso</h1>
+            		<p>We provide help to students.
+            		</p>
+            		<p>
+            			<a class="btn btn-lg btn-primary" href="#">
+            				Testimonials
+            			</a>
+            		</p>
+            	</div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel controls -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<!-- Ending the corousel -->
+
+<footer class="footer">
+    <div class="container">
+      <p class="text-muted" align="center">&copy; Aceso 2018 | <a href="/home">Home</a>
+      	<br><i class="fa fa-code"></i> with <i class="fa fa-heart" style="color:#ed2939;"></i> By Jargons
+      </p>
+    </div>
+  </footer>
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+    <!-- Custom JS for search feature -->
+    <!-- <script src="/scripts/search.js" async defer></script> -->
+    <!-- Bootstrap JS CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</body>
+</html>

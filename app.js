@@ -23,7 +23,8 @@ var commentRoutes    = require("./routes/comments"),
     postRoutes       = require("./routes/posts")
     disorderRoutes   = require("./routes/disorders"),
     indexRoutes      = require("./routes/index"),
-    userRoutes       = require("./routes/user")
+    userRoutes       = require("./routes/user"),
+    adminRoutes      = require("./routes/admin")
 
 // assign mongoose promise library and connect to database
 const databaseUri = process.env.DB_LINK;
@@ -69,7 +70,7 @@ app.use("/memoirs/:id/comments", commentRoutes);
 app.use("/disorders", disorderRoutes);
 app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
-
+app.use("/dashboard/", adminRoutes);
 
 app.listen("7890", function(){
    console.log("The Aceso Server Has Started!");
