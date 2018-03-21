@@ -50,6 +50,18 @@ module.exports = {
       req.flash('error', 'This site is now read only thanks to spam and trolls.');
       res.redirect('back');
     }
-  }
+  },
+  checkDisorder: function(req, res, next) {
+    Disorder.findById(req.params.id, function(err, foundDisorder){
+      if(err || !foundDisorder){
+          console.log(err);
+          req.flash('error', 'Sorry, that disorder does not exist!');
+          res.redirect('/disorders');
+      } else {
+          req.disorder = foundDisorder;
+          next();
+      } 
+    });
+  },
 } 
 

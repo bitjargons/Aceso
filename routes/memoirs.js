@@ -97,7 +97,7 @@ router.put("/:id", function(req, res){
 router.delete("/:id", isLoggedIn, checkUserMemoir, function(req, res) {
     Comment.remove({
       _id: {
-        $in: req.memoir.comments
+        $in: req.disorder.comments
       }
     }, function(err) {
       if(err) {

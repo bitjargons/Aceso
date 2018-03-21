@@ -86,34 +86,27 @@ router.put("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res)
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.delete("/:id", middleware.isLoggedIn, middleware.checkDisorder, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
-	//   Post.remove({
-	//       _id: {
-	//         $in: req.disorder.posts
-	//       }
-	//     }, function(err) {
-	//       if(err) {
-	//         req.flash('error', err.message);
-	//         res.redirect('/');
-	//       } else {
-	//         req.disorder.remove(function(err) {
-	//           if(err) {
-	//               req.flash('error', err.message);
-	//               return res.redirect('/');
-	//           }
-	//           req.flash('error', 'Disorder deleted!');
-	//           res.redirect('/disorders');
-	//         });
-	//       }
-	//   });
-		if(err) {
-			req.flash('error', err.message);
-			res.redirect('/');
-		} else {
-			req.flash('error', 'Disorder deleted!');
-			res.redirect('/disorders');
-		}
+	  Post.remove({
+	      _id: {
+	        $in: req.disorder.posts
+	      }
+	    }, function(err) {
+	      if(err) {
+	        req.flash('error', err.message);
+	        res.redirect('/');
+	      } else {
+	        req.disorder.remove(function(err) {
+	          if(err) {
+	              req.flash('error', err.message);
+	              return res.redirect('/');
+	          }
+	          req.flash('error', 'Disorder deleted!');
+	          res.redirect('/disorders');
+	        });
+	      }
+	  });
 	});
 });
 
