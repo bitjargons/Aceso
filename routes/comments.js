@@ -3,10 +3,10 @@ var router  = express.Router({mergeParams: true});
 var Memoir = require("../models/memoir");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
-var { isLoggedIn, checkUserComment, isAdmin } = middleware;
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
 
 //Comments New
-router.get("/new", isLoggedIn, function(req, res){
+router.get("/new", isLoggedIn, isVerified, function(req, res){
     // find memoir by id
     Memoir.findById(req.params.id, function(err, memoir){
         if(err){
@@ -18,7 +18,7 @@ router.get("/new", isLoggedIn, function(req, res){
 });
 
 //Comments Create
-router.post("/", isLoggedIn,function(req, res){
+router.post("/", isLoggedIn, isVerified, function(req, res){
    //lookup memoir using ID
    Memoir.findById(req.params.id, function(err, memoir){
        if(err){
@@ -46,7 +46,7 @@ router.post("/", isLoggedIn,function(req, res){
 });
 
 // COMMENT EDIT ROUTE
-router.get("/:comment_id/edit", isLoggedIn,checkUserComment, function(req, res){
+router.get("/:comment_id/edit", isLoggedIn, isVerified,checkUserComment, function(req, res){
    Memoir.findById(req.params.id, function(err, foundMemoir){
       if(err || !foundMemoir) {
         req.flash("error", "No memoir found");
@@ -64,7 +64,7 @@ router.get("/:comment_id/edit", isLoggedIn,checkUserComment, function(req, res){
 });
 
 // COMMENT UPDATE
-router.put("/:comment_id", isLoggedIn ,checkUserComment, function(req, res){
+router.put("/:comment_id", isLoggedIn, isVerified ,checkUserComment, function(req, res){
    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
       if(err){
           res.redirect("back");
@@ -75,7 +75,7 @@ router.put("/:comment_id", isLoggedIn ,checkUserComment, function(req, res){
 });
 
 // COMMENT DESTROY ROUTE
-router.delete("/:comment_id", isLoggedIn ,checkUserComment, function(req, res){
+router.delete("/:comment_id", isLoggedIn, isVerified ,checkUserComment, function(req, res){
   // // find memoir, remove comment from comments array, delete comment in db
   // Memoir.findByIdAndUpdate(req.params.id, {
   //   $pull: {

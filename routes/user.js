@@ -7,6 +7,8 @@ var async    	 = require("async");
 var nodemailer = require("nodemailer");
 var crypto 		 = require("crypto");
 
+//Changes has to be made for not letting anyone access verify page of any other user
+
 router.get("/users/:id", function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {

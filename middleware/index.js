@@ -44,6 +44,13 @@ module.exports = {
        }
     });
   },
+  isVerified: function(req, res, next) {
+    if(req.user.isVerified) {
+      return next();
+    }
+    req.flash("error", "You must verify your account!");
+    res.redirect("/login");
+  },
   isAdmin: function(req, res, next) {
     if(req.user.isAdmin) {
       return next();
