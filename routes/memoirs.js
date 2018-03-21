@@ -4,12 +4,7 @@ var Memoir = require("../models/memoir");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var request = require("request");
-var { isLoggedIn, checkUserMemoir, checkUserComment, isAdmin } = middleware;
-
-// Define escapeRegex function for search feature
-function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+var { isLoggedIn, checkUserMemoir, checkUserComment, isVerified , isAdmin } = middleware;
 
 //INDEX - show all memoirs
 router.get("/", isLoggedIn, isVerified ,function(req, res){
