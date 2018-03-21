@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+</div>
+
+<div class="row">
+	<div class="col-sm-3 sidebar">
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation" class="active"><a href="/dashboard/">Disorders</a></li>
+			<li role="presentation"><a href="/dashboard/posts">Posts</a></li>
+			<li role="presentation"><a href="/dashboard/memoirs">Memoirs</a></li>
+			<li role="presentation"><a href="/">Home</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-6 table-responsive">
+		<form action="/dashboard" method="post">
+			<table class="table">
+				<tr>
+					<th>S. No</th>
+					<th>Disorder</th>
+					<th>Image</th>
+					<th>Description</th>
+				</tr>
+				<% for(var i = 0; i < fields; i++) { %>
+					<tr>
+						<td class="">
+							<%= i+1 %>
+						</td>
+						<td class="">
+							<input type="text" class="form-control" name="disorders[name][]">
+						</td>
+						<td class="">
+							<input type="text" class="form-control" name="disorders[image][]">
+						</td>
+						<td class="">
+							<input type="text" class="form-control" name="disorders[desc][]">
+						</td>
+					</tr>
+				<% } %>
+			</table>
+			<button class="btn btn-success">Add these Disorders</button>
+		</form>
+	</div>
+
+	<div class="col-sm-3">
+	</div>
+</div>
+
+<div>
+<% include ../partials/footer %>

@@ -19,12 +19,13 @@ var express         = require("express"),
 require('dotenv').load();
 
 //requiring routes
-var commentRoutes   = require("./routes/comments"),
-    memoirRoutes    = require("./routes/memoirs"),
-    postRoutes      = require("./routes/posts")
-    disorderRoutes  = require("./routes/disorders"),
-    indexRoutes     = require("./routes/index"),
-    userRoutes      = require("./routes/user")
+var commentRoutes    = require("./routes/comments"),
+    memoirRoutes     = require("./routes/memoirs"),
+    postRoutes       = require("./routes/posts")
+    disorderRoutes   = require("./routes/disorders"),
+    indexRoutes      = require("./routes/index"),
+    userRoutes       = require("./routes/user"),
+    adminRoutes      = require("./routes/admin")
 
 // assign mongoose promise library and connect to database
 const databaseUri = process.env.MONGOLAB_URL;
@@ -77,6 +78,7 @@ app.use("/memoirs/:id/comments", commentRoutes);
 app.use("/disorders", disorderRoutes);
 app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
+app.use("/dashboard/", adminRoutes);
 
 function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()

@@ -1,0 +1,73 @@
+<% include ../partials/header %>
+</div>
+
+<div class="row">
+	<div class="col-sm-3 sidebar">
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation"><a href="/dashboard">Disorders</a></li>
+			<li role="presentation" class="active"><a href="/dashboard/posts">Posts</a></li>
+			<li role="presentation"><a href="/dashboard/memoirs">Memoirs</a></li>
+			<li role="presentation"><a href="#">Home</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-9">
+		<div class="">
+			<div class="addbutton">
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#post"><span class="glyphicon glyphicon-plus"></span> Add Posts</button>
+			</div>
+			<br>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>Post</th>
+						<th>Posted Under</th>
+						<th>Action</th>
+					</tr>
+					<% posts.forEach(function(post) { %>
+						<tr>
+							<td><%= post.symptom %></td>
+							<td><%= post.parent.disorder %></td>
+							<td>
+								<a href="/dashboard/posts/edit/<%= post._id %>" class="btn btn-warning" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+								<form action ="/dashboard/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+									<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+									</button>
+								</form>
+							</td>
+						</tr>
+					<% }) %>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div id="post" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Posts</h4>
+      </div>
+      <div class="modal-body">
+        <p>How many posts(in numbers) do you wanna add?</p>
+        <form action="/dashboard/posts/add" method="post">
+        	<input type="number" name="memno" class="form-control">
+        	<br>
+        	<button class="form-control btn btn-info">Let's Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+<% include ../partials/footer %>
