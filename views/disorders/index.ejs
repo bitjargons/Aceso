@@ -3,9 +3,11 @@
 	<div class="container">
 		<h1>Welcome To Our Disorders</h1>
 		<p>Pagal Hojaiye!!!</p>
+		<% if(currentUser && currentUser.isAdmin){ %>
 		<p>
 			<a class"btn btn-primary btn-lg" href="/disorders/new">Add New Disorder</a>
 		</p>
+		<% } %>
 	</div>
 </header>
 

@@ -8,19 +8,16 @@ var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = midd
 
 //root route
 router.get("/", function(req, res){
-    res.render("landing");
+  res.render("landing");
 });
 
-router.get("/home" ,isLoggedIn ,function(req, res) {
-  if(req.user.isVerfied) {
-      res.render('/home', {page: 'home'})
-  }
-  res.redirect('/users/'+ req.user._id + '/verify');
+router.get("/home" ,isLoggedIn, isVerified, function(req, res) {
+  res.render('index', {page: 'home'})
 });
 
 // show register form
 router.get("/register", function(req, res){
-   res.render("register", {page: "register"}); 
+  res.render("register", {page: "register"}); 
 });
 
 //handle sign up logic

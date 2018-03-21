@@ -29,10 +29,7 @@ router.get('/users/:id/verify', function(req, res) {
       req.flash("error", "Something went wrong");
       res.redirect("/");
     } else {
-      if(foundUser.isVerified) {
-        res.render('index', {page: "home"})
-      }
-      res.render('users/verify', {user: foundUser});
+        res.render('users/verify', {user: foundUser});
     }
   })
 });
