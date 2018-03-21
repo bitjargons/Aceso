@@ -4,13 +4,14 @@ var passport	 = require("passport");
 var User 			 = require("../models/user");
 var Memoir  	 = require("../models/memoir");
 var middleware = require("../middleware");
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
 
 //root route
 router.get("/", function(req, res){
     res.render("landing");
 });
 
-router.get("/home" , middleware.isLoggedIn,function(req, res) {
+router.get("/home" ,isLoggedIn ,function(req, res) {
   if(req.user.isVerfied) {
       res.render('/home', {page: 'home'})
   }

@@ -4,15 +4,10 @@ var Memoir = require("../models/memoir");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var request = require("request");
-var { isLoggedIn, checkUserMemoir, checkUserComment, isAdmin } = middleware;
-
-// Define escapeRegex function for search feature
-function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+var { isLoggedIn, checkUserMemoir, checkUserComment, isVerified , isAdmin } = middleware;
 
 //INDEX - show all memoirs
-router.get("/", function(req, res){
+router.get("/", isLoggedIn, isVerified ,function(req, res){
     // Get all memoirs from DB
     Memoir.find({}, function(err, allmemoirs){
        if(err){
@@ -24,7 +19,7 @@ router.get("/", function(req, res){
 });
 
 //CREATE - add new Memoir to DB
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", isLoggedIn, isVerified, function(req, res){
     // get data from form and add to memoirs array
     var name = req.body.name;
     var image = req.body.image;
@@ -47,12 +42,12 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 });
 
 //NEW - show form to create new Memoir
-router.get("/new", middleware.isLoggedIn, function(req, res){
+router.get("/new", isLoggedIn, isVerified, function(req, res){
    res.render("memoirs/new"); 
 });
 
 // SHOW - shows more info about one Memoir
-router.get("/:id", function(req, res){
+router.get("/:id", isLoggedIn, isVerified,function(req, res){
     //find the Memoir with provided ID
     Memoir.findById(req.params.id).populate("comments").exec(function(err, foundMemoir){
         if(err || !foundMemoir){
@@ -68,7 +63,7 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT Memoir ROUTE
-router.get("/:id/edit", isLoggedIn ,checkUserMemoir , function(req, res){
+router.get("/:id/edit", isLoggedIn, isVerified, checkUserMemoir , function(req, res){
   Memoir.findById(req.params.id, function(err, foundMemoir){
     if (err) {
       console.log(err);    
@@ -79,7 +74,7 @@ router.get("/:id/edit", isLoggedIn ,checkUserMemoir , function(req, res){
 });
 
 // UPDATE Memoir ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id", isLoggedIn, isVerified, checkUserMemoir,function(req, res){
     // find and update the correct Memoir
     // console.log(req.body.memoir);
     Memoir.findByIdAndUpdate(req.params.id, req.body.memoir, function(err, updatedMemoir){
@@ -94,7 +89,7 @@ router.put("/:id", function(req, res){
 });
 
 // DESTROY Memoir and its comments from the database
-router.delete("/:id", isLoggedIn, checkUserMemoir, function(req, res) {
+router.delete("/:id", isLoggedIn, isVerified, checkUserMemoir, function(req, res) {
     Comment.remove({
       _id: {
         $in: req.memoir.comments
