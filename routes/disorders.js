@@ -88,8 +88,6 @@ router.put("/:id", isLoggedIn, isVerified, isAdmin, function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-<<<<<<< HEAD
-=======
 router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
 	  Post.remove({
