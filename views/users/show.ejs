@@ -1,37 +1,45 @@
 <% include ../partials/header %>
-
 <div class="row">
-	<div class="col-md-4">
-		<p> <%= user.details.firstName + ' ' + user.details.lastName  %> </p>
-		<div class="thumbnail">
-			<img src="<%= user.avatar %>" alt="user profile image">
-			<div class="caption"><a href="mailto:"<%= user.email %>"><%= user.email %></a>
+	<div class="col-md-3 col-sm-3">
+		<div class="user-wrapper">
+			<img src="<%= user.details.avatar %>" class="img-responsive" /> 
+			<div class="description">
+				<h4><%= user.details.firstName + ' ' + user.details.lastName %></h4>
+				<h5><a href="mailto:"<%= user.email %>"><%= user.email %></a></h5>
+				<p>
+					Pellentesque elementum dapibus convallis. 
+				</p>
+				<hr/>
+				<a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-user-plus" ></i> &nbsp;Profile + </a> 
+				<% if(user.isAdmin){ %>
+					<a class="btn btn-warning" href="/dashboard"><span class="glyphicon glyphicon-dashboard">Admin Dashboard</a>
+				<%	}	%>
 			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
-
-			<% if(user.isAdmin){ %>
-				<a class="btn btn-warning" href="/dashboard"><span class="glyphicon glyphicon-dashboard">Admin Dashboard</a>
-			<%}%>
-      
-			<div class="caption"><a href="mailto:"<%= user.email %>"><%= user.email %></a></div>
-			<%= user.details.description %>
 		</div>
 	</div>
-	<div class="col-md-8">	
-		<h3><%= user.details.firstName %>'s Memoirs</h3>
-		<ul>
-			<% memoirs.forEach(function(memoir) { %>
-				<li><a href="/memoirs/<%= memoir.id %>"><%= memoir.name %></a></li>
-			<% }); %>
-		</ul>
+	<div class="col-md-9 col-sm-9  user-wrapper">
+		<div class="description">
+			<h3><%= user.details.firstName %> Biography:</h3>
+			<hr/>
+			<p><%= user.details.description %></p>   
+			<h3> Social Links: </h3>
+			<hr/>                
+			<a href="#" class="btn btn-social btn-facebook">
+			<i class="fa fa-facebook"></i>&nbsp; Facebook </a>
+			<a href="#" class="btn btn-social btn-google">
+			<i class="fa fa-google-plus"></i>&nbsp; Google</a>
+			<a href="#" class="btn btn-social btn-twitter">
+			<i class="fa fa-twitter"></i>&nbsp; Twitter </a>
+			<a href="#" class="btn btn-social btn-linkedin">
+			<i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
+			<h3><%= user.details.firstName %>'s Memoirs: </h3>
+			<hr/>
+				<ul>
+					<% memoirs.forEach(function(memoir) { %>
+						<li><a href="/memoirs/<%= memoir.id %>"><%= memoir.name %></a></li>
+					<% }); %>
+				</ul>
+		</div>
 	</div>
 </div>
-
 <% include ../partials/footer %>

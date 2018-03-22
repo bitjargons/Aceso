@@ -6,10 +6,10 @@ var Memoir 		 = require("../models/memoir");
 var async    	 = require("async");
 var nodemailer = require("nodemailer");
 var crypto 		 = require("crypto");
-
+var middleware = require("../middleware");
 //Changes has to be made for not letting anyone access verify page of any other user
 
-router.get("/users/:id", function(req, res) {
+router.get("/users/:id", middleware.isVerified ,function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {
       req.flash("error", "Something went wrong");
