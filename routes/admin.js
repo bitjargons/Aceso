@@ -9,10 +9,7 @@ var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
 var app = express();
-var bodyParser = require("body-parser");
- 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+
 
 //INDEX
 router.get("/", middleware.isLoggedIn, middleware.isAdmin ,function(req, res) {
@@ -85,7 +82,7 @@ router.put("/:id", function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, middleware.checkDisorder, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
   //   Post.remove({
   //       _id: {
@@ -135,9 +132,48 @@ router.post("/posts/add", middleware.isLoggedIn, middleware.isAdmin, function(re
       console.log(err);
       res.send("Shit happened");
     } else {
-      res.render("dashboard/addpost", {fields: num, disorder: disorders, page:"addposts"})
+      res.render("dashboard/addpost", {fields: num, disorders: allDisorders, page:"addposts"})
     }
   }) 
+});
+
+// EDIT Memoir ROUTE
+router.get("/posts/edit/:id", middleware.isLoggedIn , middleware.isAdmin, function(req, res){
+  Post.findById(req.params.id, function(err, foundPost){
+    if (err) {
+      console.log(err);    
+    } else {
+      res.render("dashboard/editpost", {post: foundPost});
+    }
+  });
+});
+
+// UPDATE Post ROUTE
+router.put("/posts/:id", function(req, res){
+    // find and update the correct Post
+    // console.log(req.body.post);
+    Post.findByIdAndUpdate(req.params.id, req.body.post, function(err, updatedPost){
+       if(err){
+          req.flash("error", err.message)
+          res.redirect("back");
+       } else {
+           req.flash("success","Successfully Updated!");
+           res.redirect("/dashboard/posts/");
+       }
+    });
+});
+
+// DESTROY Post from the database
+router.delete("/posts/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+  Post.findByIdAndRemove(req.params.id, function(err){
+    if(err) {
+      req.flash('error', err.message);
+      res.redirect('/');
+    } else {
+      req.flash('error', 'Posts deleted!');
+      res.redirect('/dashboard/posts');
+    }
+  });
 });
 
 //Memoirs
@@ -159,23 +195,7 @@ router.post("/memoirs/add", middleware.isLoggedIn, middleware.isAdmin, function(
 
 //Create Memoirs
 router.post("/memoirs", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
-  var names = req.body.memoirs.name;
-  var descs = req.body.memoirs.desc;
-  var images = req.body.memoirs.image;
-  var author = {
-        id: req.user._id,
-        username: req.user.username
-  }
-  console.log(names);
-  var newMemoirs = [];
-  names.forEach(function(name){
-    var newMemoir = {name: name, image: image, description: desc, author:author}
-    newMemoirs.push(name);
-  })
-
-  descs.forEach(function(desc){
-    newMemoirs.push(desc);
-  })
+  var newMemoirs = req.body.memoirs;
   // for(var i = 0; i < names.length; i++) {
   //   var newMemoir = {name: names[i], image: images[i], description: descs[i], author:author};
   //   newMemoirs.push(newMemoir);
@@ -210,26 +230,29 @@ router.put("/memoirs/:id", function(req, res){
 });
 
 // DESTROY Memoir and its comments from the database
-router.delete("/memoirs/:id", middleware.isLoggedIn, middleware.checkUserMemoir, function(req, res) {
-    Comment.remove({
-      _id: {
-        $in: req.memoir.comments
-      }
-    }, function(err) {
-      if(err) {
+// DESTROY Disorder and its posts from the database
+router.delete("/:id", middleware.isLoggedIn, middleware.isVerified, middleware.checkDisorder, middleware.isAdmin, function(req, res) {
+  Disorder.findByIdAndRemove(req.params.id, function(err){
+    Post.remove({
+        _id: {
+          $in: req.disorder.posts
+        }
+      }, function(err) {
+        if(err) {
           req.flash('error', err.message);
           res.redirect('/');
-      } else {
-          req.memoir.remove(function(err) {
+        } else {
+          req.disorder.remove(function(err) {
             if(err) {
                 req.flash('error', err.message);
                 return res.redirect('/');
             }
-            req.flash('error', 'Memoir deleted!');
-            res.redirect('/dashboard/memoirs');
+            req.flash('error', 'Disorder deleted!');
+            res.redirect('/disorders');
           });
-      }
-    })
+        }
+    });
+  });
 });
 
 

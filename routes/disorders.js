@@ -4,7 +4,7 @@ var Disorder = require("../models/disorder");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
-var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder } = middleware;
 
 //INDEX
 router.get("/", isLoggedIn, isVerified ,function(req, res) {
@@ -88,34 +88,27 @@ router.put("/:id", isLoggedIn, isVerified, isAdmin, function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
+router.delete("/:id", isLoggedIn, isVerified, checkDisorder, isAdmin, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
-	//   Post.remove({
-	//       _id: {
-	//         $in: req.disorder.posts
-	//       }
-	//     }, function(err) {
-	//       if(err) {
-	//         req.flash('error', err.message);
-	//         res.redirect('/');
-	//       } else {
-	//         req.disorder.remove(function(err) {
-	//           if(err) {
-	//               req.flash('error', err.message);
-	//               return res.redirect('/');
-	//           }
-	//           req.flash('error', 'Disorder deleted!');
-	//           res.redirect('/disorders');
-	//         });
-	//       }
-	//   });
-		if(err) {
-			req.flash('error', err.message);
-			res.redirect('/');
-		} else {
-			req.flash('error', 'Disorder deleted!');
-			res.redirect('/disorders');
-		}
+	  Post.remove({
+	      _id: {
+	        $in: req.disorder.posts
+	      }
+	    }, function(err) {
+	      if(err) {
+          req.flash('error', err.message);
+          res.redirect('/');
+	      } else {
+	        req.disorder.remove(function(err) {
+	          if(err) {
+	              req.flash('error', err.message);
+	              return res.redirect('/');
+	          }
+	          req.flash('error', 'Disorder deleted!');
+	          res.redirect('/disorders');
+	        });
+	      }
+	  });
 	});
 });
 
