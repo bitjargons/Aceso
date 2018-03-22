@@ -89,7 +89,6 @@ router.put("/:id", isLoggedIn, isVerified, isAdmin, function(req, res){
 
 // DESTROY Disorder and its posts from the database
 <<<<<<< HEAD
-router.delete("/:id", middleware.isLoggedIn, middleware.checkDisorder, function(req, res) {
 =======
 router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
 >>>>>>> temp
