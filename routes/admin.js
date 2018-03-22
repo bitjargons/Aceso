@@ -82,7 +82,7 @@ router.put("/:id", function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, middleware.checkDisorder, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
   //   Post.remove({
   //       _id: {
