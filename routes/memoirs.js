@@ -26,7 +26,7 @@ router.post("/", isLoggedIn, isVerified, function(req, res){
     var desc = req.body.description;
     var author = {
         id: req.user._id,
-        username: req.user.username
+        username: req.user.details.username
     }
     var newMemoir = {name: name, image: image, description: desc, author:author}
     // Create a new Memoir and save to DB

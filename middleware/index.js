@@ -9,8 +9,8 @@ module.exports = {
     if(req.isAuthenticated()) {
       return next();
     }
-    req.flash("error", "You must be signed in to do that!");
-    res.redirect("/register");
+    req.flash("error", "You must be logged in to do that!");
+    res.redirect("/login");
   },
   checkUserMemoir: function(req, res, next) {
     Memoir.findById(req.params.id, function(err, foundMemoir){
