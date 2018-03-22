@@ -91,7 +91,6 @@ router.put("/:id", isLoggedIn, isVerified, isAdmin, function(req, res){
 <<<<<<< HEAD
 =======
 router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
->>>>>>> temp
   Disorder.findByIdAndRemove(req.params.id, function(err){
 	  Post.remove({
 	      _id: {
