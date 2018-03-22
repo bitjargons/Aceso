@@ -95,3 +95,7 @@ table{
 .sidebar {
   border-right: #eee 3px;
 }
+
+.nav-pills li:active {
+  background: #88bbd6;
+}

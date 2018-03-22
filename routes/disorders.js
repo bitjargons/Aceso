@@ -4,7 +4,7 @@ var Disorder = require("../models/disorder");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
-var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder } = middleware;
 
 //INDEX
 router.get("/", isLoggedIn, isVerified ,function(req, res) {
@@ -88,7 +88,7 @@ router.put("/:id", isLoggedIn, isVerified, isAdmin, function(req, res){
 });
 
 // DESTROY Disorder and its posts from the database
-router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
+router.delete("/:id", isLoggedIn, isVerified, checkDisorder, isAdmin, function(req, res) {
   Disorder.findByIdAndRemove(req.params.id, function(err){
 	  Post.remove({
 	      _id: {
@@ -96,8 +96,8 @@ router.delete("/:id", isLoggedIn, isVerified, isAdmin, function(req, res) {
 	      }
 	    }, function(err) {
 	      if(err) {
-	        req.flash('error', err.message);
-	        res.redirect('/');
+          req.flash('error', err.message);
+          res.redirect('/');
 	      } else {
 	        req.disorder.remove(function(err) {
 	          if(err) {

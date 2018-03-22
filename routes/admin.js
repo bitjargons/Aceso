@@ -132,7 +132,7 @@ router.post("/posts/add", middleware.isLoggedIn, middleware.isAdmin, function(re
       console.log(err);
       res.send("Shit happened");
     } else {
-      res.render("dashboard/addpost", {fields: num, disorder: disorders, page:"addposts"})
+      res.render("dashboard/addpost", {fields: num, disorders: allDisorders, page:"addposts"})
     }
   }) 
 });
@@ -230,26 +230,29 @@ router.put("/memoirs/:id", function(req, res){
 });
 
 // DESTROY Memoir and its comments from the database
-router.delete("/memoirs/:id", middleware.isLoggedIn, middleware.checkUserMemoir, function(req, res) {
-    Comment.remove({
-      _id: {
-        $in: req.memoir.comments
-      }
-    }, function(err) {
-      if(err) {
+// DESTROY Disorder and its posts from the database
+router.delete("/:id", middleware.isLoggedIn, middleware.isVerified, middleware.checkDisorder, middleware.isAdmin, function(req, res) {
+  Disorder.findByIdAndRemove(req.params.id, function(err){
+    Post.remove({
+        _id: {
+          $in: req.disorder.posts
+        }
+      }, function(err) {
+        if(err) {
           req.flash('error', err.message);
           res.redirect('/');
-      } else {
-          req.memoir.remove(function(err) {
+        } else {
+          req.disorder.remove(function(err) {
             if(err) {
                 req.flash('error', err.message);
                 return res.redirect('/');
             }
-            req.flash('error', 'Memoir deleted!');
-            res.redirect('/dashboard/memoirs');
+            req.flash('error', 'Disorder deleted!');
+            res.redirect('/disorders');
           });
-      }
-    })
+        }
+    });
+  });
 });
 
 
