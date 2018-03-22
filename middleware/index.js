@@ -6,12 +6,11 @@ var Post = require("../models/disorder");
 
 module.exports = {
   isLoggedIn: function(req, res, next) {
-    console.log(req.user);
     if(req.isAuthenticated()) {
       return next();
     }
     req.flash("error", "You must be signed in to do that!");
-    res.redirect("/login");
+    res.redirect("/register");
   },
   checkUserMemoir: function(req, res, next) {
     Memoir.findById(req.params.id, function(err, foundMemoir){
@@ -47,9 +46,10 @@ module.exports = {
   isVerified: function(req, res, next) {
     if(req.user.isVerified) {
       return next();
+    } else {
+      req.flash("error", "User is not Verified");
+      res.redirect('back');
     }
-    req.flash("error", "You must verify your account!");
-    res.redirect("/login");
   },
   isAdmin: function(req, res, next) {
     if(req.user.isAdmin) {
