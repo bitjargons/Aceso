@@ -1,31 +1,30 @@
 <% include ../partials/header %>
-<div class="row">
+<div class="row memoir-row">
   <div class="col-md-3">
-    <p class="lead">YelpCamp</p>
-    <div class="list-group">
-      <li class="list-group-item active">Info 1</li>
-      <li class="list-group-item">Info 2</li>
-      <li class="list-group-item">Info 3</li>
+    <div class="thumbnail">
+         <h4>Featured</h4>
+         <hr>
+          <div class="list-group">
+            <li class="list-group-item">Info 1</li>
+            <li class="list-group-item">Info 2</li>
+            <li class="list-group-item">Info 3</li>
+          </div>
     </div>
-    <div id="map"></div>
   </div>
   <div class="col-md-9">
     <div class="thumbnail">
-      <!-- img class="img-responsive" src="<%= memoir.image %>"> -->
       <div class="caption-full">
-        <!-- <h4 class="pull-right">
-          $<%= memoir.cost %>/night
-        </h4> -->
-        <h4><a><%= memoir.name %></a></h4>
+        <h4><%= memoir.name %></h4>
+        <hr>
         <p><%= memoir.description %></p>
         <p>
           <em>Submitted by: <%= memoir.author.username %>, <%= moment(memoir.createdAt).fromNow() %></em>
         </p>
           <% if(currentUser && memoir.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-        <a class="btn btn-warning" href="/memoirs/<%= memoir._id %>/edit">Edit</a>
-        <form action="/memoirs/<%= memoir._id %>?_method=DELETE" method="POST" class="delete-form">
-          <button class="btn btn-danger">Delete</button>
-        </form>
+            <a class="btn btn-warning" href="/memoirs/<%= memoir._id %>/edit">Edit</a>
+            <form action="/memoirs/<%= memoir._id %>?_method=DELETE" method="POST" class="delete-form">
+              <button class="btn btn-danger">Delete</button>
+            </form>
           <% } %>
       </div>
     </div>
@@ -39,29 +38,26 @@
       </div>
 
       <!--Comment section title-->
-      <h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
+      <h4>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></h4>
 
       <!--Collapse Add a comment form START-->
       <div class="collapse" id="collapseComment">
-        <div class="well" style="border-left: 5px solid #00C851;">
+        <div class="well">
             <% if(!currentUser) { %>
           <!--If the user is not logged in, direct him to the login page-->
-          <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+              <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
             <% } %>
             <% if(currentUser) { %>
-          <!--If the user is logged in, show the new comment form-->
-          <h4>Write your comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
-          <form id="add-comment-form" action="/memoirs/<%= memoir._id %>/comments" method="POST">
-            <div class="form-group">
-              <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-success btn-sm">Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
-            </div>
-          </form>
+              <!--If the user is logged in, show the new comment form-->
+              <h4>Write your comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
+              <form id="add-comment-form" action="/memoirs/<%= memoir._id %>/comments" method="POST">
+                <div class="form-group">
+                  <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success btn-sm">Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                </div>
+              </form>
             <% } %>
         </div>
       </div>
@@ -70,61 +66,61 @@
       <hr>
 
       <!--Check if there are comments, if there are none say no comments.-->
-        <% if (memoir.comments.length === 0) { %>
-      <em style="color: grey;">No comments yet.</em>
-        <% } %>
+      <% if (memoir.comments.length === 0) { %>
+        <em style="color: #cdcdcd;">No comments yet.</em>
+      <% } %>
 
       <!--Display comments by looping through them-->
         <% memoir.comments.forEach(function(comment) { %>
       <div class="row">
         <div class="col-md-12">
-          <strong>
-              <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
-            <!--If the current user owns the comment, change the color of the user icon-->
-            <span style="color: orange;" class="glyphicon glyphicon-user" aria-hidden="true"></span>
-              <% } else { %>
-            <!--Else just display it black-->
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-              <% } %>
-            <!--Print out the author username-->
-              <%= comment.author.username %>
-          </strong>
-          <!--Show when the comment was made-->
-          <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-          <!--Printing the comment-->
-          <p><%= comment.text %></p>
-          <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
-            <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
-          <!--Edit button used for collapsing the edit comment form-->
-          <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">
-            Edit</a>
-          <!--Delete comment button-->
-          <form id="delete-form" action="/memoirs/<%= memoir._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
-            <button class="btn btn-xs btn-danger">Delete</button>
-          </form>
-          <!--Edit comment form-->
-          <div class="collapse" id="collapseEdit<%= comment._id %>">
-            <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
-              <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
-              <form id="edit-comment-form" action="/memoirs/<%= memoir._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
-                <div class="form-group">
-                  <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form" rows="5" cols="70"><%= comment.text %></textarea>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-warning btn-sm">Edit comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
-                </div>
-              </form>
-            </div>
-          </div>
-            <% } %>
-          <hr>
+        <strong>
+          <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+          <!--If the current user owns the comment, change the color of the user icon-->
+          <span style="color: #f7882f;" class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <% } else { %>
+          <!--Else just display it black-->
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <% } %>
+          <!--Print out the author username-->
+          <%= comment.author.username %>
+        </strong>
+        <!--Show when the comment was made-->
+        <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+        <!--Printing the comment-->
+        <p><%= comment.text %></p>
+        <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
+        <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+        <!--Edit button used for collapsing the edit comment form-->
+        <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">
+        Edit</a>
+        <!--Delete comment button-->
+        <form id="delete-form" action="/memoirs/<%= memoir._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
+        <button class="btn btn-xs btn-danger">Delete</button>
+        </form>
+        <!--Edit comment form-->
+        <div class="collapse" id="collapseEdit<%= comment._id %>">
+        <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+        <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
+        <form id="edit-comment-form" action="/memoirs/<%= memoir._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+        <div class="form-group">
+        <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
         </div>
-      </div>
+        <div class="form-group">
+        <textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form" rows="5" cols="70"><%= comment.text %></textarea>
+        </div>
+        <div class="form-group">
+        <button class="btn btn-warning btn-sm">Edit comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+        </div>
+        </form>
+        </div>
+        </div>
+        <% } %>
+        <hr>
+        </div>
+        </div>
         <% }) %>
-    </div>
+      </div>
     <!--COMMENT SECTION END-->
 
   </div>
