@@ -32,7 +32,7 @@ router.post("/", isLoggedIn, isVerified, function(req, res){
            } else {
                //add username and id to comment
                comment.author.id = req.user._id;
-               comment.author.username = req.user.username;
+               comment.author.username = req.user.details.username;
                //save comment
                comment.save();
                memoir.comments.push(comment._id);
