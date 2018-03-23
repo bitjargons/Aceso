@@ -10,15 +10,19 @@ var middleware = require("../middleware");
 var request = require("request");
 var app = express();
 
+//Index
+router.get("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+  res.render("dashboard/");
+});
 
-//INDEX
-router.get("/", middleware.isLoggedIn, middleware.isAdmin ,function(req, res) {
+//Disorders
+router.get("/disorders", middleware.isLoggedIn, middleware.isAdmin ,function(req, res) {
     // Get 
     Disorder.find({}, function(err, allDisorders){
         if(err){s
           console.log(err);
         } else {
-          res.render("dashboard/index", {disorders:allDisorders, page: "dashboard"});
+          res.render("dashboard/disorder", {disorders:allDisorders, page: "dashboard"});
         }
     });
 });
@@ -255,6 +259,9 @@ router.delete("/:id", middleware.isLoggedIn, middleware.isVerified, middleware.c
   });
 });
 
-
+//List
+router.get("/lists", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+  res.render("dashboard/list");
+});
 
 module.exports = router;

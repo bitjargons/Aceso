@@ -34,6 +34,19 @@ router.get('/users/:id/verify', function(req, res) {
   })
 });
 
+router.get("/edit/:id", function(req, res){
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong");
+      res.redirect("/");
+    } else {
+      Memoir.find().where('author.id').equals(foundUser._id).exec(function(err, memoirs){
+        res.render("users/show", {user: foundUser, memoirs: memoirs});
+      })
+    }
+  })
+})
+
 router.post('/users/:id/verify', function(req, res, next) {
   async.waterfall([
     function(done) {

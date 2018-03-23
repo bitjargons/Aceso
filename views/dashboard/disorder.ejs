@@ -30,23 +30,33 @@
           <li><a href = "/dashboard/disorders"><i class="fa fa-home"></i>Disorders</li>
           <li><a href = "/dashboard/posts"><i class="fa fa-signal"></i>Posts</a></li>
           <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i>Memoirs</a></li>
-          <li><a href = "/dashboard/lists"><i class="fa fa-envelope"></i>List</a></li>
           <li><a href = "/"><i class="fa fa-envelope"></i>Home</a></li>
         </ul>
       </div>
     </div>
     <div class="view">
       <div class="viewHeader">
-        <div class="title">Manage Stats</div>
+        <div class="title">Manage Disorders</div>
         <div class="functions">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#disorder"><span class="glyphicon glyphicon-plus"></span>Add Disorder</button>
         </div>
       </div>
       <div class="content">
         <div class="list">
-          <div class="title">Stats</div>
+          <div class="title">Disorders</div>
           <ul>
             <li>
+            	<% disorders.forEach(function(disorder) { %>
+            		<%= disorder.name %>
+            		<%= disorder.posts.length %>
+              	<div class="info">
+                	<a href="/dashboard/disorders/edit/<%= disorder._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+                	<form action ="/dashboard/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+										<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+									</button>
+									</form>
+              	</div>
+              <% }) %>
             </li>
           </ul>
         </div>
@@ -81,6 +91,19 @@
 						<th>Total Posts</th>
 						<th>Action</th>
 					</tr>
+					<% disorders.forEach(function(disorder) { %>
+						<tr>
+							<td><%= disorder.name %></td>
+							<td><%= disorder.posts.length %></td>
+							<td>
+								<a href="/dashboard/disorders/edit/<%= disorder._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+								<form action ="/dashboard/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+									<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+									</button>
+								</form>
+							</td>
+						</tr>
+					<% }) %>
 				</table>
 			</div>
 		</div>
