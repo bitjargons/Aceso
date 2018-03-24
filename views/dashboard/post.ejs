@@ -41,8 +41,10 @@
           <ul>
           	<% posts.forEach(function(post) { %>
 	            <li>
-	            		<%= post.symptom %>
-	            		<%= post.parent.disorder %>
+                  <span>
+                    <b><%= post.symptom %></b>
+                    <u> Posted Under <%= post.parent.disorder %></u>
+                  </span>
 	              	<div class="info">
 	                	<a href="/dashboard/posts/edit/<%= post._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
 	                	<form action ="/dashboard/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">

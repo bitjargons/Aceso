@@ -121,6 +121,7 @@ body {
   padding-left: 0px;
 }
 .main .nav .menu ul li {
+  display: block;
   cursor: pointer;
   list-style: none;
   margin: 5px 0px;
@@ -240,10 +241,15 @@ body {
   font-weight: 600;
 }
 .main .view .content .list ul li .info {
+  display: inline-block;
   float: right;
 }
 .main .view .content .list ul li .info span {
   font-weight: 300;
+}
+
+.main .view .content .list ul li .info form {
+  display: inline;
 }
 .main .view .content .list ul li .info .button {
   float: right;

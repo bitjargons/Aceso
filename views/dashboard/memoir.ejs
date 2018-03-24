@@ -41,8 +41,10 @@
           <ul>
           	<% memoirs.forEach(function(memoir) { %>
             	<li>
-            		<%= memoir.name %>
-            		<%= memoir.createdAt %>
+                <span>
+                  <b><%= memoir.name %></b>
+                  <u> Created On <%= memoir.createdAt %></u>
+                </span>
               		<div class="info">
                 	<a href="/dashboard/memoirs/edit/<%= memoir._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
                 	<form action ="/dashboard/memoir/<%= memoir._id %>?_method=DELETE" method="POST" class="delete-form">

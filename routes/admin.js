@@ -35,28 +35,25 @@ router.post("/disorders/add", middleware.isLoggedIn, middleware.isAdmin, functio
 
 //Create Disorders
 router.post("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
-  var names = req.body.disorders.name;
-  var descs = req.body.disorders.desc;
-  var images = req.body.disorders.image;
-  var author = {
-        id: req.user._id,
-        username: req.user.username
-  }
-  console.log(names);
-  var newDisorders = [];
-  names.forEach(function(name){
-    var newDisorder = {name: name, image: image, description: desc, author:author}
-    newDisorders.push(name);
-  })
+  var fields = req.body.fields;
+  var disorders = [];
 
-  descs.forEach(function(desc){
-    newDisorders.push(desc);
+  for(var i = 0; i < fields; i++) {
+    var m = "disorder" + i;
+    disorders.push(req.body[m]);
+  }
+
+  Disorder.collection.insert(disorders, function(err, docs) {
+    if(err) {
+    	console.log(err);
+    	req.flash("error", err.msg);
+    	res.redirect("back");
+    } else {
+    	console.info('%d potatoes were successfully stored.', docs.length);
+    	req.flash("success", "Successfully added!");
+    	res.redirect("/dashboard/disorders");
+    }
   })
-  // for(var i = 0; i < names.length; i++) {
-  //   var newMemoir = {name: names[i], image: images[i], description: descs[i], author:author};
-  //   newDisorders.push(newDisorder);
-  // }
-  res.send(newDisorders);
 })
 
 // EDIT Disorder ROUTE

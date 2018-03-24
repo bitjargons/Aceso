@@ -45,19 +45,21 @@
         <div class="list">
           <div class="title">Disorders</div>
           <ul>
-            <li>
-            	<% disorders.forEach(function(disorder) { %>
-            		<%= disorder.name %>
-            		<%= disorder.posts.length %>
+            <% disorders.forEach(function(disorder) { %>
+              <li>
+                <span>
+                  <b><%= disorder.name %></b>
+                  <u> <%= disorder.posts.length %> Posts </u>
+                </span>
               	<div class="info">
                 	<a href="/dashboard/disorders/edit/<%= disorder._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-                	<form action ="/dashboard/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+                	<form action ="/dashboard/<%= disorder._id %>?_method=DELETE" method="POST" class="form-inline">
 										<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
 									</button>
 									</form>
               	</div>
-              <% }) %>
-            </li>
+              </li>
+            <% }) %>
           </ul>
         </div>
    

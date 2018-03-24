@@ -17,7 +17,10 @@ var mseSchema = new mongoose.Schema({
     sibling {
     	name: String,
       age: Number,
-      isElder: Boolean
+      isElder: {
+      	type: Boolean,
+      	default: false;
+      }
     },
 
     income: Number
@@ -26,15 +29,24 @@ var mseSchema = new mongoose.Schema({
   treatments: [
    	{
    		problem: String,
-   		isStudentProblem: Boolean,
-   		isMentalProblem: Boolean
+   		isStudentProblem: {
+      	type: Boolean,
+      	default: false;
+      }
+   		isMentalProblem: {
+      	type: Boolean,
+      	default: false;
+      }
    	}
   ],
 
   familyHealth: [
 	  {
 	   	problem: String,
-	  	isMentalProblem: Boolean
+	  	isMentalProblem: {
+      	type: Boolean,
+      	default: false;
+      }
 	  }
   ],
 
@@ -47,14 +59,20 @@ var mseSchema = new mongoose.Schema({
  	playHistory: [
  		{
  			game: String,
- 			played: Boolean,
+ 			played: {
+      	type: Boolean,
+      	default: false;
+      },
  			reason: String
  		}
  	],
 
  	education: {
  		highSchool {
- 			hasCompleted: Boolean,
+ 			hasCompleted: {
+      	type: Boolean,
+      	default: false;
+      },
  			fromSchool: String
  		},
 
@@ -64,12 +82,18 @@ var mseSchema = new mongoose.Schema({
  		},
 
  		diploma {
- 			hasCompleted: Boolean,
+ 			hasCompleted: {
+      	type: Boolean,
+      	default: false;
+      },
  			fromCollege: String
  		},
 
  		graduation {
- 			hasCompleted: Boolean,
+ 			hasCompleted: {
+      	type: Boolean,
+      	default: false;
+      },
  			fromCollege: String
  		}
  	},

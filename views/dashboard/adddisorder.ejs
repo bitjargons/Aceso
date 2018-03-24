@@ -13,6 +13,7 @@
 
 	<div class="col-sm-6 table-responsive">
 		<form action="/dashboard" method="post">
+			<input type="text" name="fields" value="<%= fields %>" hidden>
 			<table class="table">
 				<tr>
 					<th>S. No</th>
@@ -26,13 +27,13 @@
 							<%= i+1 %>
 						</td>
 						<td class="">
-							<input type="text" class="form-control" name="disorders[name][]">
+							<input type="text" class="form-control" name="disorder<%= i %>[name]">
 						</td>
 						<td class="">
-							<input type="text" class="form-control" name="disorders[image][]">
+							<input type="text" class="form-control" name="disorder<%= i %>[image]">
 						</td>
 						<td class="">
-							<input type="text" class="form-control" name="disorders[desc][]">
+							<input type="text" class="form-control" name="disorder<%= i %>[desc]">
 						</td>
 					</tr>
 				<% } %>
@@ -40,6 +41,7 @@
 			<button class="btn btn-success">Add these Disorders</button>
 		</form>
 	</div>
+
 
 	<div class="col-sm-3">
 	</div>
