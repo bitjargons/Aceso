@@ -46,12 +46,22 @@
         <div class="list">
           <div class="title">Most Affected:</div>
           <ul>
-            <li>
-              Student 40
-              <div class="info">
-                <a href="mailto://someone@a.com" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-              </div>
-            </li>
+            <% tests.forEach(function(test) { %>
+              <li>
+                <span>
+                  <b><%= test.name %></b>
+                  <%- JSON.stringify(test.scores) %>
+                  <u> Taken on <%= test.takenAt.toDateString() %></u>
+                </span>
+                  <div class="info">
+                  <a href="mailto://<%= test.takenBy.email %>" class="btn btn-warning"><span class="glyphicon glyphicon-envelope"></span></a>
+                  <form action ="/dashboard/list/<%= test._id %>?_method=DELETE" method="POST" class="delete-form">
+                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                  </form>
+                </div>
+              </li>
+            <% }) %>
           </ul>
         </div>
    

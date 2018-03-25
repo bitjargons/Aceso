@@ -9,8 +9,14 @@ var UserSchema = new mongoose.Schema({
       avatar: String,
       firstName: String,
       lastName: String,
-      description: String,
+      description: String
     },
+    tests: [
+    	{
+    		type: mongoose.Schema.Types.ObjectId,
+    		ref: "Test"
+    	}
+    ],
     fillDetailsToken: String,
     fillDetailsExpires: Date,
     isVerified: {type: Boolean, default: false},

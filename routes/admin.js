@@ -5,6 +5,7 @@ var User = require("../models/user");
 var Memoir = require("../models/memoir");
 var Disorder = require("../models/disorder");
 var Comment = require("../models/comment");
+var Test = require("../models/test");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
@@ -258,7 +259,14 @@ router.delete("/:id", middleware.isLoggedIn, middleware.isVerified, middleware.c
 
 //List
 router.get("/lists", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
-  res.render("dashboard/list");
+  Test.find({isCritical: true}, function(err, foundTests) {
+    if(err) {
+      console.log("Something bad happened");
+    }
+    else {
+      res.render("dashboard/list", {tests: foundTests})
+    }
+  })
 });
 
 module.exports = router;
