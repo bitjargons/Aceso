@@ -1,0 +1,119 @@
+.privew {
+    margin-bottom: 20px;
+}
+.questionsBox {
+    display: block;
+    border: solid 1px #e3e3e3;
+    padding: 10px 20px 0px;
+    border-radius: 3px;
+    margin: 0 10px;
+}.questions {
+    background:#88bbd6;
+    color: #FFF;
+    font-size: 22px;
+    padding: 8px 30px;
+    font-weight: 300;
+    margin: 0 -30px 10px;
+    position: relative;
+}
+.questions:after {
+    background: url(../img/icon.png) no-repeat left 0;
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.questions:after {
+    left: auto;
+    right: 0;
+    background-position: -10px 0;
+}
+.questions:before, .questions:after {
+    background: black;
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.answerList {
+    margin-bottom: 15px;
+}
+
+
+ol, ul {
+    list-style: none;
+}
+.answerList li:first-child {
+    border-top-width: 2;
+}
+
+.answerList li {
+    padding: 6px ;
+}
+.answerList label {
+    display: block;
+    padding: 8px;
+    border-radius: 6px;
+    border: solid 1px #dde7e8;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 2px;
+    line-height: normal;
+}
+.questionsRow {
+    background: #cdcdcd;
+    margin: 0 -20px;
+    padding: 10px 20px;
+    border-radius: 0 0 3px 3px;
+}
+.button, .greyButton {
+    background-color: #f2f2f2;
+    color: #888888;
+    display: inline-block;
+    border: solid 3px #cccccc;
+    vertical-align: middle;
+    text-shadow: 0 1px 0 #ffffff;
+    line-height: 27px;
+    min-width: 160px;
+    text-align: center;
+    padding: 5px 20px;
+    text-decoration: none;
+    border-radius: 0px;
+    text-transform: capitalize;
+}
+.questionsRow span {
+    float: right;
+    display: inline-block;
+    line-height: 30px;
+    border: solid 1px #aeb9c0;
+    padding: 0 10px;
+    background: #FFF;
+    color: #007fbe;
+}
+
+.progress-bar
+{
+    color: #99d3df;
+}
+.modal-title
+{
+
+    background: #cdcdcd;
+    color:#f7882f;
+}

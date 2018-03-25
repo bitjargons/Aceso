@@ -5,20 +5,25 @@ var User = require("../models/user");
 var Memoir = require("../models/memoir");
 var Disorder = require("../models/disorder");
 var Comment = require("../models/comment");
+var Test = require("../models/test");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
 var app = express();
 
+//Index
+router.get("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+  res.render("dashboard/");
+});
 
-//INDEX
-router.get("/", middleware.isLoggedIn, middleware.isAdmin ,function(req, res) {
+//Disorders
+router.get("/disorders", middleware.isLoggedIn, middleware.isAdmin ,function(req, res) {
     // Get 
     Disorder.find({}, function(err, allDisorders){
         if(err){s
           console.log(err);
         } else {
-          res.render("dashboard/index", {disorders:allDisorders, page: "dashboard"});
+          res.render("dashboard/disorder", {disorders:allDisorders, page: "dashboard"});
         }
     });
 });
@@ -31,28 +36,25 @@ router.post("/disorders/add", middleware.isLoggedIn, middleware.isAdmin, functio
 
 //Create Disorders
 router.post("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
-  var names = req.body.disorders.name;
-  var descs = req.body.disorders.desc;
-  var images = req.body.disorders.image;
-  var author = {
-        id: req.user._id,
-        username: req.user.username
-  }
-  console.log(names);
-  var newDisorders = [];
-  names.forEach(function(name){
-    var newDisorder = {name: name, image: image, description: desc, author:author}
-    newDisorders.push(name);
-  })
+  var fields = req.body.fields;
+  var disorders = [];
 
-  descs.forEach(function(desc){
-    newDisorders.push(desc);
+  for(var i = 0; i < fields; i++) {
+    var m = "disorder" + i;
+    disorders.push(req.body[m]);
+  }
+
+  Disorder.collection.insert(disorders, function(err, docs) {
+    if(err) {
+    	console.log(err);
+    	req.flash("error", err.msg);
+    	res.redirect("back");
+    } else {
+    	console.info('%d potatoes were successfully stored.', docs.length);
+    	req.flash("success", "Successfully added!");
+    	res.redirect("/dashboard/disorders");
+    }
   })
-  // for(var i = 0; i < names.length; i++) {
-  //   var newMemoir = {name: names[i], image: images[i], description: descs[i], author:author};
-  //   newDisorders.push(newDisorder);
-  // }
-  res.send(newDisorders);
 })
 
 // EDIT Disorder ROUTE
@@ -255,6 +257,16 @@ router.delete("/:id", middleware.isLoggedIn, middleware.isVerified, middleware.c
   });
 });
 
-
+//List
+router.get("/lists", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+  Test.find({isCritical: true}, function(err, foundTests) {
+    if(err) {
+      console.log("Something bad happened");
+    }
+    else {
+      res.render("dashboard/list", {tests: foundTests})
+    }
+  })
+});
 
 module.exports = router;

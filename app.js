@@ -13,6 +13,7 @@ var express         = require("express"),
     Disorder        = require("./models/disorder"),
     Post            = require("./models/post"),
     timeout         = require('connect-timeout')
+    Feedback        = require("./models/feedback")
     // seedDB          = require("./seeds")
     
 // configure dotenv
@@ -25,7 +26,8 @@ var commentRoutes    = require("./routes/comments"),
     disorderRoutes   = require("./routes/disorders"),
     indexRoutes      = require("./routes/index"),
     userRoutes       = require("./routes/user"),
-    adminRoutes      = require("./routes/admin")
+    adminRoutes      = require("./routes/admin"),
+    feedbackRoutes   = require("./routes/feedbacks")
 
 // assign mongoose promise library and connect to database
 const databaseUri = process.env.MONGOLAB_URL;
@@ -79,6 +81,7 @@ app.use("/disorders", disorderRoutes);
 app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
 app.use("/dashboard/", adminRoutes);
+app.use("/feedbacks", feedbackRoutes);
 
 function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()

@@ -26,28 +26,42 @@
       <div class="menu">
         <div class="title">Navigation</div>
         <ul>
-        	<li class="active"><a href = "/dashboard/"><i class="fa fa-home"></i>Dashboard</li>
+        	<li><a href = "/dashboard/"><i class="fa fa-home"></i>Dashboard</li>
           <li><a href = "/dashboard/disorders"><i class="fa fa-home"></i>Disorders</li>
           <li><a href = "/dashboard/posts"><i class="fa fa-signal"></i>Posts</a></li>
           <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i>Memoirs</a></li>
-          <li><a href = "/dashboard/lists"><i class="fa fa-envelope"></i>List</a></li>
+          <li  class="active"><a href = "/dashboard/lists"><i class="fa fa-envelope"></i>List</a></li>
           <li><a href = "/"><i class="fa fa-envelope"></i>Home</a></li>
         </ul>
       </div>
     </div>
     <div class="view">
       <div class="viewHeader">
-        <div class="title">Manage Stats</div>
+        <div class="title">Student List</div>
         <div class="functions">
           <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#disorder"><span class="glyphicon glyphicon-plus"></span>Add Disorder</button> -->
         </div>
       </div>
       <div class="content">
         <div class="list">
-          <div class="title">Stats</div>
+          <div class="title">Most Affected:</div>
           <ul>
-            <li>
-            </li>
+            <% tests.forEach(function(test) { %>
+              <li>
+                <span>
+                  <b><%= test.name %></b>
+                  <%- JSON.stringify(test.scores) %>
+                  <u> Taken on <%= test.takenAt.toDateString() %></u>
+                </span>
+                  <div class="info">
+                  <a href="mailto://<%= test.takenBy.email %>" class="btn btn-warning"><span class="glyphicon glyphicon-envelope"></span></a>
+                  <form action ="/dashboard/list/<%= test._id %>?_method=DELETE" method="POST" class="delete-form">
+                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                  </form>
+                </div>
+              </li>
+            <% }) %>
           </ul>
         </div>
    

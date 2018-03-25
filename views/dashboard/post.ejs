@@ -20,7 +20,8 @@
       <div class="menu">
         <div class="title">Navigation</div>
         <ul>
-          <li><a href = "/dashboard"><i class="fa fa-home"></i>Disorders</a></li>
+          <li><a href = "/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li><a href = "/dashboard/disorders"><i class="fa fa-home"></i>Disorders</li>
           <li class="active"><a href = "/dashboard/posts"><i class="fa fa-signal"></i>Posts</a></li>
           <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i>Memoirs</a></li>
           <li><a href = "/"><i class="fa fa-envelope"></i>Home</a></li>
@@ -31,7 +32,7 @@
       <div class="viewHeader">
         <div class="title">Manage Posts</div>
         <div class="functions">
-          <button type="button" class="btn btn-success green" data-toggle="modal" data-target="#post"><span class="glyphicon glyphicon-plus"></span> Add Posts</button>
+          <!-- <button type="button" class="btn btn-success green" data-toggle="modal" data-target="#post"><span class="glyphicon glyphicon-plus"></span> Add Posts</button> -->
         </div>
       </div>
       <div class="content">
@@ -40,8 +41,10 @@
           <ul>
           	<% posts.forEach(function(post) { %>
 	            <li>
-	            		<%= post.symptom %>
-	            		<%= post.parent.disorder %>
+                  <span>
+                    <b><%= post.symptom %></b>
+                    <u> Posted Under <%= post.parent.disorder %></u>
+                  </span>
 	              	<div class="info">
 	                	<a href="/dashboard/posts/edit/<%= post._id %>" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
 	                	<form action ="/dashboard/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">

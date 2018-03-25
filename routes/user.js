@@ -2,6 +2,7 @@ var express 	 = require("express");
 var router  	 = express.Router();
 var passport 	 = require("passport");
 var User 			 = require("../models/user");
+var Test       = require("../models/test");
 var Memoir 		 = require("../models/memoir");
 var async    	 = require("async");
 var nodemailer = require("nodemailer");
@@ -22,6 +23,41 @@ router.get("/users/:id", middleware.isVerified ,function(req, res) {
   })
 });
 
+router.post("/users/:id/test", middleware.isLoggedIn, function(req, res) {
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Oops there's an error");
+      console.log(err);
+      res.redirect("/");
+    } else {
+      var critical = false;
+      if(req.body.isCritical == "true") {
+        critical = true;
+      }
+      var newTest = {name: req.body.name, takenBy: {id: foundUser.id, email: foundUser.email}, isCritical: critical}
+      Test.create(newTest, function(err, test) {
+        if(err) {
+          req.flash("error", "Something went wrong");
+          console.log(err);
+        } else {
+          var scores = req.body.score;
+          console.log(scores);
+          test.scores = scores;
+          //pushing to user's tests
+          foundUser.tests.push(test._id);
+          test.save();
+          foundUser.save();
+          console.log("Done.. Successfully")
+          res.render("users/results", {user: foundUser, result: test})
+          // res.send(test);
+          // req.flash("success", "Successfully added comment");
+          // res.redirect('/memoirs/' + memoir._id);
+        }
+      })
+    }
+  })
+})
+
 router.get('/users/:id/verify', function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {
@@ -33,6 +69,19 @@ router.get('/users/:id/verify', function(req, res) {
     }
   })
 });
+
+router.get("/edit/:id", function(req, res){
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong");
+      res.redirect("/");
+    } else {
+      Memoir.find().where('author.id').equals(foundUser._id).exec(function(err, memoirs){
+        res.render("users/show", {user: foundUser, memoirs: memoirs});
+      })
+    }
+  })
+})
 
 router.post('/users/:id/verify', function(req, res, next) {
   async.waterfall([

@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+<header class="jumbotron">
+    <div class="container">
+        <h1>Feedbacks</h1>
+        
+    </div>
+</header>
+
+
+<body>
+
+<div class="container">
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+        <% feedbacks.forEach(function(feedback) { %>
+            <div class="col-md-3 col-sm-6 col-xs-10 col-xs-offset-1 col-sm-offset-0 col-md-offset-0">
+                <div class="thumbnail ">
+                   
+                    <div>
+                        <h3>UserName: <%= feedback.author.username %></h3>
+                        <p>Feedback : <%= feedback.feedback %></p>
+                        <span>Rating   : <% for (var i=0; i < 5; i++) { %>
+                        <span class="glyphicon glyphicon-star<%= (i < parseInt(feedback.rating) - 0.5)? '' : '-empty'%>"" style="color: #FACC2E" ></span>
+                        <% } %></span>
+                    </div>
+                    
+                </div>  
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
