@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Aceso</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <!-- Theme CSS -->
+      <!-- <link rel="stylesheet" href="/stylesheets/main.css"> -->
+      <link rel="stylesheet" href="/stylesheets/main_new.css">
+      <!-- Custom Fonts -->
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/cssFile.css">
+  </head>
+  <body style="padding-top: 0px">
+  <!-- Navigation -->
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+      <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header page-scroll">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarcollapse">
+                <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+              </button>
+
+              <a class="navbar-brand" href="/home">Aceso</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <!-- class="<%= typeof page !== 'undefined' && page === 'memoirs' ? 'active' : '' %>" -->
+              <li>
+                <a href="/memoirs">Memoirs</a>
+              </li>
+              <li>
+                <a href="/disorders">Articles</a>
+              </li>
+              <li>
+                <a href="/feedbacks">Feedback</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!currentUser){ %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Sign Up</a></li>
+                <% } else { %>
+                    <li><a href="/users/<%= currentUser._id %>">Signed In As <%= currentUser.details.firstName %></a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+            </ul>
+          </div>
+      </div>
+  </nav>
+  
+  <div>
+     <% if(error && error.length > 0) { %>
+       <div class="alert alert-danger"><p><%= error %></p></div>
+     <% } %>
+     
+     <% if(success && success.length > 0) { %>
+       <div class="alert alert-success"><p><%= success %></p></div>
+     <% } %>
+  </div>
+
+	<header class="intro-header" style="background-image: url(https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?ixlib=rb-0.3.5&s=03c58d24def9ae1a3dcb2c9d1b3100b7&auto=format&fit=crop&w=750&q=80);>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="site-heading">
+            <h1>Aceso</h1>
+            <hr class="small">
+            <span class="subheading">An Initiative by Jargons</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+ 	<div class="container">
+ 		<div class="panel panel-info">
+      <div class="panel-heading">
+        Scores
+      </div>
+      <div class="panel-body">
+      	<b><%- JSON.stringify(result.scores) %></b>
+      </div>
+      <div class="panel-footer">
+      </div>
+    </div>
+  </div>
+
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+	<script type="text/javascript" src='questions.json'></script>
+	<script type='text/javascript' src='/scripts/tr1.js'></script>
+ 	
+<% include ../partials/footer %> 
