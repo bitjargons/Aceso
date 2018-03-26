@@ -1,77 +1,53 @@
-<html>
-    <head>
-        <title>Anxiety</title>
-       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<% include ../partials/header %>
 
-      	<%= if(disorder.name === "Anxiety") %>
-         <link rel="stylesheet" type="text/css" href="/stylesheets/anxiety.css">
-        <%= else if(disorder.name === "Depression") %>
-         <link rel="stylesheet" type="text/css" href="/stylesheets/depression.css">
-        <%= else if(disorder.name === "Stress") %>
-        	<link rel="stylesheet" type="text/css" href="/stylesheets/stress.css">
-        <%= else if(disorder.name === "LGBTQ") %>
-        	<link rel="stylesheet" type="text/css" href="/stylesheets/lgbtq.css">
-        <%= else %>
-        	<link rel="stylesheet" type="text/css" href="/stylesheets/depression.css">
+<div class="container main-class">
+	<ul class="nav nav-pills">
+		<% disorders.forEach(function(eachDisorder) { %>
+			<li role="presentation" class="<%= typeof disorder !== 'undefined' && disorder.name === eachDisorder.name ? 'active' : '' %>"><a href="/disorders/<%= eachDisorder._id %>"> <%= eachDisorder.name %> </a></li>
+		<% }) %>
+	</ul>
+	<hr>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<%= disorder.name %>
+					<% if(currentUser && currentUser.isAdmin){ %>
+					<a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit"><span class="glyphicon glyphicon-pencil"></a>
+	        <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+	          <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+	        </form>
+	       	<% } %>
+				</div>
+				<div class="panel-body">
+					<img class="img-responsive" src="<%= disorder.image %>">
+		      <div class="caption-full">
+		      	<b>Info:</b>
+		        <p><%= disorder.description %></p>
+		        <% if(currentUser && currentUser.isAdmin){ %>
+		        	<a href="/disorders/<%= disorder._id %>/posts/new" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add a Post</a>
+		        <% } %>
+		        <!-- <% //if(currentUser && disorder.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+		        <% //} %> -->
+		      </div>
+				</div>
+	    </div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row" style="display: flex; flex-wrap: wrap;">
+				<% if (disorder.posts.length === 0) { %>
+					<div class="alert alert-danger" role="alert">Oops! Looks like there are no posts yet!</div>
+				<% } else { %>
+				<% disorder.posts.forEach(function(post) { %>
+				  <div class="col-xs-6">
+				    <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class="thumbnail posts">
+				      <%= post.symptom %>
+				    </a>
+				  </div>
+				<% }); } %>
+			</div>
+		</div>
+	</div>
+</div>
 
-
-
-        <link rel="stylesheet" type="text/css" href="depression.css">
-    </head>
-    <body>
-        <!-- Main div-->
-            <div class="row">
-                <!-- About thumbnail-->
-                <div class="well info-well col-lg-3 col-md-2" id="info-well">
-                    <div class="thumbnail white-text ">
-                            <div class="header">
-                                <%= disorder.name %>
-                                <%= if(currentUser && currentUser.isAdmin){ %>
-                                <a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit"><span class="glyphicon glyphicon-pencil"></a>
-                                	<% } %>
-                            </div>
-                            <h3>About</h3>
-                            <img src="images/stress1.jpg" alt="Hope" width="100%">
-                            <div class="caption white-text">
-                                <p><%= disorder.description %></p>
-
-                                <div class="collapse" id="collapseExample">
-                                    <div class="thumbnail caption caption-expand">
-                                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                    </div>
-                                </div>
-                                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">More
-                                </button>
-                                <hr>
-                            <button type="button" class="btn btn-info ">
-                                <div>
-                                    <a href="https://www.nimh.nih.gov/health/topics/depression/index.shtml" class="a2" >More info</a>
-                                </div>
-                            </button>
-                            </div> 
-                    </div>
-                </div>
-                
-                
-                <div class="col-lg-9 col-mid-6">
-                    <%= if(disorder.posts.length === 0) { %>
-										<div class="alert alert-danger" role="alert">Oops! Looks like there are no posts yet!</div>
-									<% } else { %>
-									<% disorder.posts.forEach(function(post) { %>
-									  <div class="col-lg-3 thumbnail thumbnail-post rounded">
-									  	<div class="caption post-caption">
-										    <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class=" class="a1"">
-										    	<p>
-										      	<%= post.symptom %>
-										    	</p>
-										    </a>
-										  </div>
-									  </div>
-									<% }); } %>
-                </div>
-                
-            </div><!--Main div end-->
-    </body>
-</html>
+<% include ../partials/footer %>

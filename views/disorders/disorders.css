@@ -1,0 +1,12 @@
+body{
+	background: #005AA7;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #FFFFFF,lightyellow,#ffe259,#ffd400);
+	margin: 0px;
+	padding: 20px;
+}
+
+.btn{
+    background: white;
+    color: #009f50;
+}
