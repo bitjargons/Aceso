@@ -82,69 +82,20 @@
     </div>
   </header>
  	<div class="container">
- 		<div class="content">
- 			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
- 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
- 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
- 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
- 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
- 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
- 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
- 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
- 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
- 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
- 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
- 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
- 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
- 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
- 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
- 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- 		</div>
-    <button type="button" class="btn-test" data-toggle="modal" data-target="#myModal">Take the test!!</button>
-
-  	<!-- The Modal -->
-  	<div class="modal fade" id="myModal">
-  	  <div class="modal-dialog modal-lg">
-  	    <div class="modal-content">
-
-  	      <!-- Modal Header -->
-  	      <div class="modal-header">
-  	        <h2 class="modal-title">Questions</h2>
-  	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-  	      </div>
-
-  	      <!-- Modal body -->
-  	      <div class="modal-body">
-  	          <div class="questionsBox">
-  	        <div id='quiz'></div>
-  	         <div class="questionsRow">
-  	        <div class='button' id='next'><a href='#'>Next</a></div>
-  	        <div class='button' id='prev'><a href='#'>Prev</a></div>
-  	        <div class='button' id='start'> <a href='#'>Start Over</a></div>
-  	      </div>
-  	      <div class="modal-footer">
-  	        <div class="progress progress-striped active">
-  	          <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id ="progress">
-  	            <span class="sr-only">5% Complete</span>
-  	          </div>
-  	        </div>
-  	        <form action="/users/<%= currentUser._id %>/test" method="post">
-  	          <input type="text" name="name" id="testbox" value="DASS" hidden="true">
-  	          <input type="text" name="score[stress]" id="stressbox" hidden="true">
-  	          <input type="text" name="score[anxiety]" id="anxietybox" hidden="true">
-  	          <input type="text" name="score[depression]" id="depressionbox" hidden="true">
-  	          <input type="text" name="isCritical" id="criticalbox" hidden="true">
-  	          <button type="submit" class="button" id="postit" hidden="true">Finish</button>
-  	        </form>
-  	      </div>
-  	        </div>
-  	     </div>
-  	    </div>
-  	  </div>
-  	</div>
+ 		<div class="panel panel-info">
+      <div class="panel-heading">
+        Scores
+      </div>
+      <div class="panel-body">
+      	<b><%- JSON.stringify(result.scores) %></b>
+      </div>
+      <div class="panel-footer">
+      </div>
+    </div>
+  </div>
 
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
 	<script type="text/javascript" src='questions.json'></script>
 	<script type='text/javascript' src='/scripts/tr1.js'></script>
  	
-<% include ./partials/footer %> 
+<% include ../partials/footer %> 

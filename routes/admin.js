@@ -7,6 +7,7 @@ var Disorder    = require("../models/disorder");
 var Comment     = require("../models/comment");
 var Test        = require("../models/test");
 var Post        = require("../models/post");
+var Feedback    = require("../models/feedback");
 var middleware  = require("../middleware");
 var request     = require("request");
 var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder} = middleware;
@@ -235,6 +236,18 @@ router.get("/lists", isLoggedIn, isAdmin, function(req, res) {
     }
     else {
       res.render("dashboard/list", {tests: foundTests})
+    }
+  })
+});
+
+//Feedback
+router.get("/feedbacks", isLoggedIn, isAdmin, function(req, res) {
+  Feedback.find({}, function(err, totalFeedbacks) {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      res.render("dashboard/feedback", {feedbacks: totalFeedbacks})
     }
   })
 });
