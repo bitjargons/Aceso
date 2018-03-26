@@ -1,0 +1,31 @@
+<% include ../partials/adminheader %>
+	<div class="view">
+    <div class="viewHeader">
+      <div class="title">Add Memoirs</div>
+			<form action="/dashboard/memoirs" method="post">
+				<table class="table">
+					<tr>
+						<th>S. No</th>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<% for(var i = 0; i < fields; i++) { %>
+						<tr>
+							<td class="">
+								<%= i+1 %>
+							</td>
+							<td class="">
+								<input type="text" class="form-control" name="memoirs[][name]">
+							</td>
+							<td class="">
+								<input type="text" class="form-control" name="memoirs[][desc]">
+							</td>
+						</tr>
+					<% } %>
+				</table>
+				<button class="btn btn-success">Add these Memoirs</button>
+		</form>
+		<a href="dashboard/memoirs">Go Back</a>
+		</div>
+  </div>
+<% include ../partials/adminfooter %>

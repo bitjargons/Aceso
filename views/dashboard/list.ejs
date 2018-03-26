@@ -1,132 +1,33 @@
-<html>
-<head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/stylesheets/main.css">
-	<link rel="stylesheet" href="/stylesheets/dashboard.css">
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
-</script>
-<!-- Custom JS for features -->
-<script src="/scripts/main.js" async defer></script>
-<!-- Bootstrap JS CDN -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-<body style = "background-image: url(http://www.ultraimg.com/images/2UeGfhZ.jpg);">
-<div class="page">
-  <div class="pageHeader">
-    <div class="title">Dashboard</div>
-    <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">Admin </span><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/73.jpg" width="40" height="40"/></div>
-  </div>
-  <div class="main">
-    <div class="nav">
-      <div class="searchbox">
-        <div><i class="fa fa-search"></i>
-          <input type="search" placeholder="Search"/>
-        </div>
+<% include ../partials/adminheader %>
+  <div class="view">
+    <div class="viewHeader">
+      <div class="title">Student List</div>
+      <div class="functions">
+        <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#disorder"><span class="glyphicon glyphicon-plus"></span>Add Disorder</button> -->
       </div>
-      <div class="menu">
-        <div class="title">Navigation</div>
+    </div>
+    <div class="content">
+      <div class="list">
+        <div class="title">Most Affected:</div>
         <ul>
-        	<li><a href = "/dashboard/"><i class="fa fa-home"></i>Dashboard</li>
-          <li><a href = "/dashboard/disorders"><i class="fa fa-home"></i>Disorders</li>
-          <li><a href = "/dashboard/posts"><i class="fa fa-signal"></i>Posts</a></li>
-          <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i>Memoirs</a></li>
-          <li  class="active"><a href = "/dashboard/lists"><i class="fa fa-envelope"></i>List</a></li>
-          <li><a href = "/"><i class="fa fa-envelope"></i>Home</a></li>
+          <% tests.forEach(function(test) { %>
+            <li>
+              <span>
+                <b><%= test.name %></b>
+                <%- JSON.stringify(test.scores) %>
+                <u> Taken on <%= test.takenAt.toDateString() %></u>
+              </span>
+                <div class="info">
+                <a href="mailto://<%= test.takenBy.email %>" class="btn btn-warning"><span class="glyphicon glyphicon-envelope"></span></a>
+                <form action ="/dashboard/list/<%= test._id %>?_method=DELETE" method="POST" class="delete-form">
+                  <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </form>
+              </div>
+            </li>
+          <% }) %>
         </ul>
       </div>
     </div>
-    <div class="view">
-      <div class="viewHeader">
-        <div class="title">Student List</div>
-        <div class="functions">
-          <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#disorder"><span class="glyphicon glyphicon-plus"></span>Add Disorder</button> -->
-        </div>
-      </div>
-      <div class="content">
-        <div class="list">
-          <div class="title">Most Affected:</div>
-          <ul>
-            <% tests.forEach(function(test) { %>
-              <li>
-                <span>
-                  <b><%= test.name %></b>
-                  <%- JSON.stringify(test.scores) %>
-                  <u> Taken on <%= test.takenAt.toDateString() %></u>
-                </span>
-                  <div class="info">
-                  <a href="mailto://<%= test.takenBy.email %>" class="btn btn-warning"><span class="glyphicon glyphicon-envelope"></span></a>
-                  <form action ="/dashboard/list/<%= test._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                  </form>
-                </div>
-              </li>
-            <% }) %>
-          </ul>
-        </div>
-   
-      </div>
-    </div>
   </div>
-</div>
-
-
-<!--old one -->
-<!-- <div class="row">
-	<div class="col-sm-3 sidebar">
-		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation" class="active"><a href="/dashboard">Disorders</a></li>
-			<li role="presentation"><a href="/dashboard/posts">Posts</a></li>
-			<li role="presentation"><a href="/dashboard/memoirs">Memoirs</a></li>
-			<li role="presentation"><a href="#">Home</a></li>
-		</ul>
-	</div>
-
-	<div class="col-sm-9">
-		<div class="">
-			<div class="addbutton">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#disorder"><span class="glyphicon glyphicon-plus"></span> Add Disorder</button>
-			</div>
-			<br>
-			<div class="table-responsive">
-				<table class="table">
-					<tr>
-						<th>Disorders</th>
-						<th>Total Posts</th>
-						<th>Action</th>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
-</div> -->
-
-<!-- Modal -->
-<div id="disorder" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Disorders</h4>
-      </div>
-      <div class="modal-body">
-        <p>How many disorders(in numbers) do you wanna add?</p>
-        <form action="/dashboard/disorders/add" method="post">
-        	<input type="number" name="memno" class="form-control">
-        	<br>
-        	<button class="form-control btn btn-info">Let's Add</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</body>
-
-</html>
+<% include ../partials/adminFooter %>

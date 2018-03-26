@@ -57,17 +57,17 @@
       </div>
   </nav>
   
- <!--  <div>
+  <div>
      <% if(error && error.length > 0) { %>
-       <div class="alert alert-danger"><p><%=error %></p></div>
+       <div class="alert alert-danger"><p><%= error %></p></div>
      <% } %>
      
      <% if(success && success.length > 0) { %>
        <div class="alert alert-success"><p><%= success %></p></div>
      <% } %>
-  </div> -->
+  </div>
 
-	<header class="intro-header" style="background-image: url(https://images.unsplash.com/photo-1492057201103-01c5991d4596?ixlib=rb-0.3.5&s=9b5e92f58ec920c4946edc083e2cd0df&auto=format&fit=crop&w=755&q=80);>
+	<header class="intro-header" style="background-image: url(https://images.unsplash.com/photo-1508345546577-4f25b00d976b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a8d65c710167f7916d7601609036345a&auto=format&fit=crop&w=750&q=80);>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -78,6 +78,13 @@
 						<p>
 							<a class"btn btn-primary btn-lg" href="/memoirs/new">Add New Memoir</a>
 						</p>
+            <% if(error && error.length > 0) { %>
+              <div class="alert alert-danger"><p><%= error %></p></div>
+            <% } %>
+             
+            <% if(success && success.length > 0) { %>
+              <div class="alert alert-success"><p><%= success %></p></div>
+            <% } %>
           </div>
         </div>
       </div>
