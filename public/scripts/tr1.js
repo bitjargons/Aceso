@@ -291,9 +291,7 @@ var options=["Did not apply to me at all<br>&emsp; बिल्कुल नह�
           case 3 : Dresult=Dresult + selections[i];
                     break;                    
         }
-      }
-    
-    
+      }    
     score.append('Stress: ' + 2*Sresult + '<br>Anxiety: ' + 2*Aresult + '<br>Depression: ' + 2*Dresult
                  );
     return score;
