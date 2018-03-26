@@ -1,27 +1,27 @@
-var express 	 = require("express");
+var express 	 = require('express');
 var router  	 = express.Router();
-var passport	 = require("passport");
-var User 			 = require("../models/user");
-var Memoir  	 = require("../models/memoir");
-var middleware = require("../middleware");
-var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
+var passport	 = require('passport');
+var User 			 = require('../models/user');
+var Memoir  	 = require('../models/memoir');
+var middleware = require('../middleware');
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder } = middleware;
 
 //root route
-router.get("/", function(req, res){
-  res.render("landing");
+router.get('/', function(req, res){
+  res.render('landing');
 });
 
-router.get("/home" ,isLoggedIn, isVerified, function(req, res) {
-  res.render('index', {page: 'home'})
+router.get('/home', isLoggedIn, isVerified, function(req, res) {
+  res.render('index')
 });
 
 // show register form
-router.get("/register", function(req, res){
-  res.render("register", {page: "register"}); 
+router.get('/register', function(req, res){
+  res.render('register'); 
 });
 
 //handle sign up logic
-router.post("/register", function(req, res){
+router.post('/register', function(req, res){
   var newUser = new User({
     	rollno: req.body.rollno,
       email: req.body.email
@@ -31,40 +31,42 @@ router.post("/register", function(req, res){
   } 
   User.register(newUser, req.body.password, function(err, user){
     if(err){
-        req.flash("error", err.message);
-        console.log(err.message);
-        return res.render("register", {page: "register"});
+        req.flash('error', err.message);
+        return res.render('register');
     }
-    passport.authenticate("local")(req, res, function(){
-       req.flash("success", "Welcome to Aceso");
-       res.redirect("users/" + user._id + "/verify"); 
+    passport.authenticate('local')(req, res, function(){
+       req.flash('success', 'Welcome to Aceso');
+       res.redirect('users/' + user._id + '/verify'); 
     });
   });
 });
 
 //show login form
-router.get("/login", function(req, res){
-   res.render("login", {page: "login"}); 
+router.get('/login', function(req, res){
+   res.render('login'); 
 });
 
 //handling login logic
-router.post("/login", passport.authenticate("local", 
+router.post('/login', passport.authenticate('local', 
 {
-    successRedirect: "/home",
-    failureRedirect: "/login",
-    failureFlash: true,
-    successFlash: 'Welcome to Aceso!'
+  failureFlash: true,
+  successFlash: 'Welcome to Aceso!'
 }), function(req, res){
+  if(req.user.isAdmin)
+    res.redirect('/dashboard');
+  else {
+    res.redirect('/home');
+  }
 });
 
 // logout route
-router.get("/logout", function(req, res){
+router.get('/logout', function(req, res){
    req.logout();
-   req.flash("success", "See you later!");
-   res.redirect("/");
+   req.flash('success', 'See you later!');
+   res.redirect('/');
 });
 
-router.get("/about", function(req, res) {
-  res.render("about")
+router.get('/about', function(req, res) {
+  res.render('about')
 });
 module.exports = router;

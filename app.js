@@ -80,7 +80,7 @@ app.use("/memoirs/:id/comments", commentRoutes);
 app.use("/disorders", disorderRoutes);
 app.use("/disorders/:id/posts", postRoutes);
 app.use("/", userRoutes);
-app.use("/dashboard/", adminRoutes);
+app.use("/dashboard", adminRoutes);
 app.use("/feedbacks", feedbackRoutes);
 
 function haltOnTimedout (req, res, next) {

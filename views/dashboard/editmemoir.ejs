@@ -1,15 +1,11 @@
-<% include ../partials/header %>
-
-<div class="row">
-    <h1 style="text-align: center">Edit <%= memoir.name %></h1>
-    <div style="width: 30%; margin: 25px auto;">
+<% include ../partials/adminheader %>
+  <div class="view">
+    <div class="viewHeader">
+      <div class="title">Edit Memoirs</div>
         <form action="/dashboard/memoirs/<%= memoir._id %>?_method=PUT" method="POST">
             <div class="form-group">
                 <input class="form-control" type="text" name="memoir[name]" value="<%= memoir.name %>">
             </div>
-            <!-- <div class="form-group">
-                <input class="form-control" type="text" name="memoir[image]" value="<%= memoir.image %>">
-            </div> -->
             <div class="form-group">
                 <input class="form-control" type="text" name="memoir[description]" value="<%= memoir.description %>">
             </div>
@@ -17,8 +13,6 @@
                 <button class="btn btn-lg btn-primary btn-block">Update!</button>
             </div>
         </form>
-        <a href="/memoirs">Go Back</a>
     </div>
-</div>
-
-<% include ../partials/footer %>
+  </div>
+<% include ../partials/adminfooter %>

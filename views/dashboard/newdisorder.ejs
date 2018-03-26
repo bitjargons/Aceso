@@ -1,0 +1,35 @@
+<% include ../partials/adminheader %>
+	<div class="view">
+    <div class="viewHeader">
+      <div class="title">Add Disorders</div>
+				<form action="/dashboard/disorders" method="post">
+					<input type="text" name="fields" value="<%= fields %>" hidden>
+					<table class="table">
+						<tr>
+							<th>S. No</th>
+							<th>Disorder</th>
+							<th>Image</th>
+							<th>Description</th>
+						</tr>
+						<% for(var i = 0; i < fields; i++) { %>
+							<tr>
+								<td class="">
+									<%= i+1 %>
+								</td>
+								<td class="">
+									<input type="text" class="form-control" name="disorder<%= i %>[name]">
+								</td>
+								<td class="">
+									<input type="text" class="form-control" name="disorder<%= i %>[image]">
+								</td>
+								<td class="">
+									<input type="text" class="form-control" name="disorder<%= i %>[desc]">
+								</td>
+							</tr>
+						<% } %>
+					</table>
+				<button class="btn btn-success">Add these Disorders</button>
+			</form>
+		</div>
+	</div>
+<% include ../partials/adminfooter %>

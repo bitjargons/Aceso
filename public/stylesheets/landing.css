@@ -45,10 +45,10 @@ h1 {
 }
 
 .slideshow li:nth-child(1) { 
-  background-image: url(http://i.imgur.com/K3mPv14.jpg) 
+  background-image: url(https://images.unsplash.com/11/dreamcatcher.jpg?ixlib=rb-0.3.5&s=39efff5cc586103a0f4b28d485cb42b1&auto=format&fit=crop&w=889&q=80) 
 }
 .slideshow li:nth-child(2) { 
-  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+  background-image: url(https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=41900ca14b1acd536efbaf79f09e2632&auto=format&fit=crop&w=750&q=80);
   animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 

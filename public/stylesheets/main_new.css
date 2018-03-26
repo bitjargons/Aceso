@@ -33,7 +33,6 @@ h3,
 h4,
 h5,
 h6 {
-  color: #30415d;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
@@ -66,6 +65,11 @@ hr.small {
   border-width: 4px;
   border-color: white;
 }
+
+.site-heading {
+  color: white;
+}
+
 .navbar-normal {
   width: 100%;
   z-index: 3;
@@ -509,14 +513,14 @@ body {
 .user-row .user-wrapper .description {
   border-radius: 0px;
   border-left: 0px solid #f7882f;
-  padding: 20px;
+  padding: 5px;
   background: white;
 }
 
 .user-row .description {
   border-radius: 5px;
   border-left: 3px solid #f7882f;
-  padding: 20px;
+  padding: 10px;
   background: white;
 }
 
@@ -539,4 +543,45 @@ body {
   background: #f7882f;
   color: white;
   font-weight: 800;
+}
+
+.btn-test {
+  border: 1px solid #f7882f;
+  background: #f7882f;
+  color: white;
+  font-weight: 800;
+  margin: 20px;
+  align-self: center;
+}
+
+/*==================== Feedback Classes =====================*/
+
+.feedback {
+  margin: 0 auto;
+}
+
+.animated 
+{
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.stars
+{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
+
+.footer {
+    bottom: 0;
+    left: 0;
+    position: fixed; /* OldProperty */
+    position: static;/* Updated Property */
+    width:100%;
+}
+
+.container {
+    height: 100%;
 }

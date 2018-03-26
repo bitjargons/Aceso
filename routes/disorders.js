@@ -4,7 +4,7 @@ var Disorder = require("../models/disorder");
 var Post = require("../models/post");
 var middleware = require("../middleware");
 var request = require("request");
-var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder } = middleware;
+var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder} = middleware;
 
 //INDEX
 router.get("/", isLoggedIn, isVerified ,function(req, res) {

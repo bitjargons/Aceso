@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-		Enter Your Feedback
-	</title>
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	
-	
-</head>
-
-
-<body>
-
-<div class="container">
+<% include ../partials/formheader %>
 	<div class="row">
 		<h1 style="text-align: center;">Create a New Feedback</h1>
 		<div style="width: 30%; margin: 25px auto;">
@@ -31,20 +16,14 @@
  					<input type="radio" name="rating" id="inlineRadio4" value="4"> 4 Star	</label>
 				<label class="radio-inline">
   				<input type="radio" name="rating" id="inlineRadio5" value="5"> 5 Star	</label>
-				
 				<div class="form-group">
 					<button class="btn btn-lg btn-primary btn-block">Submit!!</button>
 				</div>
-
 			</form>
 			<a href="/home">Go Back</a>
 		</div>
 	</div>
-</div>
-
-
-</body>
-</html>
+<% include ../partials/footer %>
 
 
         
