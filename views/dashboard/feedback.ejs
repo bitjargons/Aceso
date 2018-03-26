@@ -1,0 +1,71 @@
+<% include ../partials/adminheader %>
+  <div class="view">
+    <div class="viewHeader">
+      <div class="title">Feedbacks</div>
+      <div class="functions">
+        <!-- <button type="button" class="btn btn-success green" data-toggle="modal" data-target="#memoir"><span class="glyphicon glyphicon-plus"></span> Add Memoirs</button> -->
+      </div>
+    </div>
+    <div class="content">
+      <div class="list">
+        <div class="title">All Feedbacks</div>
+        <ul>
+            <% feedbacks.forEach(function(feedback) { %>
+              <li>
+                <span>
+                  <b><%= feedback.rating %> Stars</b> - By
+                  <%= feedback.author.username %>
+                  <u> on <%= feedback.createdAt.toDateString() %></u>
+                </span>
+                  <div class="info">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#feedback" data-feedback="<%= feedback.feedback %>" data-rating="<%= feedback.rating %>" data-creator="<%= feedback.author.username %>" data-date="<%= feedback.createdAt.toDateString() %>"><span class="glyphicon glyphicon-eye-open"></span></button>
+                  <form action ="/dashboard/feedbacks/<%= feedback._id %>?_method=DELETE" method="POST" class="delete-form">
+                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                  </form>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+<div id="feedback" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Feedback</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+  $('#feedback').on('show.bs.modal', function (event) { // id of the modal with event
+
+    var button = $(event.relatedTarget)
+    var feedback = button.data('feedback')
+    var author = button.data('creator')
+    var rating = button.data('rating')
+    var date = button.data('date')
+    
+    var content = "<b>Rating:</b> " + rating + " stars<br><b>Feedback:</b> " + feedback + "<br><b>By:</b> " + author + "<br><b>On:</b> " + date;
+    // Update the modal's content.
+    var modal = $(this)
+    //modal.find('.modal-title').text(title)
+    modal.find('.modal-body').html(content)
+  })
+})
+</script>
+<% include ../partials/adminFooter %>
