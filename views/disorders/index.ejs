@@ -57,15 +57,39 @@
       </div>
   </nav>
   
- <!--  <div>
-     <% if(error && error.length > 0) { %>
-       <div class="alert alert-danger"><p><%=error %></p></div>
-     <% } %>
+ <div>
+    <% if(error && error.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= error %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
      
-     <% if(success && success.length > 0) { %>
-       <div class="alert alert-success"><p><%= success %></p></div>
-     <% } %>
-  </div> -->
+    <% if(success && success.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= success %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
+  </div>
 
 <header class="intro-header" style="background-image: url(https://images.unsplash.com/photo-1484415063229-3d6335668531?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e41b789e5d2a9b156139b4e4f860845c&auto=format&fit=crop&w=788&q=80);>
     <div class="container">
@@ -75,6 +99,11 @@
             <h1>Articles</h1>
             <hr class="small">
             <span class="subheading">Learn More and Spread Awareness</span>
+            <% if(currentUser && currentUser.isAdmin){ %>
+            <p>
+              <a href="/disorders/new"></span>Add New Article</a>
+            </p>
+            <% } %>
           </div>
         </div>
       </div>
@@ -90,8 +119,11 @@
 				<div class="caption">
 					<h4><%= disorder.name %></h4>
 				</div>
+				<div>
+					<p><%= disorder.description.substring(0, 150) %></p>
+				</div>
 				<p>
-          <a href="/disorders/<%= disorder._id %>" class="btn btn-primary">More Info</a>
+	        <a href="/disorders/<%= disorder._id %>" class="btn btn-primary">More Info</a>
         </p>
 			</div>	
 		</div>

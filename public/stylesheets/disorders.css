@@ -1,25 +1,26 @@
-body{
-	margin-top:50px;
-	padding: 20px;
-}
+
 /*styling for depression*/
-.depression{
+body .depression {
 	background: #005AA7;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to left, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, lightyellow,#ffe259,#ffd400);
+	margin-top:50px;
+	padding: 20px;
 }
-.depression>.panel-info>.panel-heading{
-	color:white;
+
+.depression .panel-info .panel-heading{
+		color:white;
     border-color: transparent;
     background: linear-gradient(to right, #fc4a1a, #f7b733);
 }
-.depression>.panel-info>.panel-body p{
+
+.depression .panel-info .panel-body p{
 	background-color: white;
 	color: orange;
 	border: transparent;
 }
 
-.depression>a:hover{
+.depression a:hover{
 	background: linear-gradient(to right, #fc4a1a, #f7b733);
     color:white;
     text-decoration: none;
@@ -32,18 +33,18 @@ body{
 	background: -webkit-linear-gradient(to left, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #FFFFFF, #e7eff6, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.anxiety>.panel-info>.panel-heading{
+.anxiety .panel-info .panel-heading{
 	color:white;
     border-color: transparent;
     background: linear-gradient(to right,#226c91,#398fba);
 }
-.anxiety>.panel-info>.panel-body p{
+.anxiety .panel-info .panel-body p{
 	color:cornflowerblue;
     background-color: white;
     border:transparent;
 }
 
-.anxiety>a:hover{
+.anxiety a:hover{
 	background: linear-gradient(to right,#226c91,#398fba);
     color:white;
     text-decoration: none;
@@ -56,18 +57,18 @@ body{
 	background: -webkit-linear-gradient(to left, #FFF, #106b10);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #FFFFFF,#d2f9bb, #106b10);
 }
-.stress>.panel-info>.panel-heading{
+.stress .panel-info .panel-heading{
 	color:white;
     border-color: transparent;
     background: linear-gradient(to right, #FFFFFF,#d2f9bb, #106b10);
 }
-.stress>.panel-info>.panel-body p{
+.stress .panel-info .panel-body p{
 	color:#106b10;
     background-color: white;
     border:transparent;
 }
 
-.stress>a:hover{
+.stress a:hover{
 	background: linear-gradient(to right, #106b10, #0f9b0f);
     color:white;
     text-decoration: none;
@@ -79,18 +80,18 @@ body{
 	background: white;  /* fallback for old browsers */
 	background: linear-gradient(to right, #ff6e7f, #bfe9ff);
 }
-.lgbtq>.panel-info>.panel-heading{
+.lgbtq .panel-info .panel-heading{
 	color:white;
     border-color: transparent;
     background: linear-gradient(to right, red, orange, yellow, green, blue, violet);
 }
-.lgbtq>.panel-info>.panel-body p{
+.lgbtq .panel-info .panel-body p{
 	color:#3b5998;
     background-color: white;
     border:transparent;
 }
 
-.lgbtq>a:hover{
+.lgbtq a:hover{
 	background: #3b5998;
     color:white;
     text-decoration: none;

@@ -58,14 +58,40 @@
   </nav>
   
   <div>
-     <% if(error && error.length > 0) { %>
-       <div class="alert alert-danger"><p><%= error %></p></div>
-     <% } %>
+    <% if(error && error.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= error %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
      
-     <% if(success && success.length > 0) { %>
-       <div class="alert alert-success"><p><%= success %></p></div>
-     <% } %>
+    <% if(success && success.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= success %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
   </div>
+
+      
 
 	<header class="intro-header" style="background-image: url(https://images.unsplash.com/photo-1508345546577-4f25b00d976b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a8d65c710167f7916d7601609036345a&auto=format&fit=crop&w=750&q=80);>
     <div class="container">
@@ -76,15 +102,15 @@
             <hr class="small">
 						<p class="subheading">Learn from experiences</p>
 						<p>
-							<a class"btn btn-primary btn-lg" href="/memoirs/new">Add New Memoir</a>
+							<a href="/memoirs/new">Add New Memoir</a>
 						</p>
-            <% if(error && error.length > 0) { %>
+            <!-- <% if(error && error.length > 0) { %>
               <div class="alert alert-danger"><p><%= error %></p></div>
             <% } %>
              
             <% if(success && success.length > 0) { %>
               <div class="alert alert-success"><p><%= success %></p></div>
-            <% } %>
+            <% } %> -->
           </div>
         </div>
       </div>

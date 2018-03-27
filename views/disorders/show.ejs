@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div class="container main-class">
+<div class="container <%= disorder.name.toLowerCase() %>">
 	<ul class="nav nav-pills">
 		<% disorders.forEach(function(eachDisorder) { %>
 			<li role="presentation" class="<%= typeof disorder !== 'undefined' && disorder.name === eachDisorder.name ? 'active' : '' %>"><a href="/disorders/<%= eachDisorder._id %>"> <%= eachDisorder.name %> </a></li>

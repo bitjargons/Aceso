@@ -1,7 +1,8 @@
 var express = require("express");
 var router  = express.Router({mergeParams: true});
-var Memoir = require("../models/memoir");
-var Comment = require("../models/comment");
+var db = require("../models")
+var Memoir = db.Memoir;
+var Comment = db.Comment;
 var middleware = require("../middleware");
 var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin } = middleware;
 

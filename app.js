@@ -87,6 +87,10 @@ function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
+app.locals.callModal =  function() {
+  document.getElementById("#flashmodal").modal();
+}
+
 app.listen(process.env.PORT || 7890, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
