@@ -233,7 +233,7 @@ var options=["Did not apply to me at all<br>&emsp; बिल्कुल नह�
   }
 
   function calculateSeverity() {
-    if( Sresult >= 15 || Aresult >= 15 || Dresult >=15) isCritical = true;
+    if( Sresult >= 25 || Aresult >= 14 || Dresult >=20) isCritical = true;
     return isCritical;
     console.log(isCritical);
   }

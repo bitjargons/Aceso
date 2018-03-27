@@ -14,7 +14,14 @@
             <li>
               <span>
                 <b><%= test.name %></b>
-                <%- JSON.stringify(test.scores) %>
+                <% var scores = test.scores %>
+                <% var key %>
+                <% for (key in scores) { %>
+                  <% if (scores.hasOwnProperty(key)) { %>
+                  <b><%= key %> :</b> <%= scores[key] %>
+                  <br>
+                  <% } %>
+                <% } %>
                 <u> Taken on <%= test.takenAt.toDateString() %></u>
               </span>
                 <div class="info">
