@@ -15,6 +15,10 @@ router.get('/home', isLoggedIn, isVerified, function(req, res) {
   res.render('index')
 });
 
+router.get('/home/test', isLoggedIn, isVerified, function(req, res) {
+  res.render('pgwbi')
+});
+
 // show register form
 router.get('/register', function(req, res){
   res.render('register'); 
