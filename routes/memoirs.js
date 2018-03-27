@@ -92,7 +92,7 @@ router.put("/:id", isLoggedIn, isVerified, checkUserMemoir,function(req, res){
 router.delete("/:id", isLoggedIn, isVerified, checkUserMemoir, function(req, res) {
     Comment.remove({
       _id: {
-        $in: req.memoirs.comments
+        $in: req.memoir.comments
       }
     }, function(err) {
       if(err) {

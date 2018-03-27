@@ -4,23 +4,57 @@
   <link rel="stylesheet" href="/stylesheets/main.css">
 	<link rel="stylesheet" href="/stylesheets/dashboard.css">
 </head>
-<div class="page">
-  <div class="pageHeader">
-    <div class="title">Dashboard</div>
-    <div class="userPanel"><span class="username">Admin </span></div>
+<body>
+  <div>
+    <% if(error && error.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= error %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
+     
+    <% if(success && success.length > 0) { %>
+      <div class="modal fade" tabindex="-1" role="dialog" id="flashmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+              <p><%= success %></p>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% } %>
   </div>
-  <div class="main">
-    <div class="nav">
-      <div class="menu">
-        <div class="title">Navigation</div>
-        <ul>
-        	<li class="active"><a href="/dashboard/"><i class="fas fa-unlock-alt"></i> Dashboard</li>
-          <li><a href = "/dashboard/disorders"><i class="fas fa-th"></i> Disorders</li>
-          <li><a href = "/dashboard/posts"><i class="fa fa-signal"></i> Posts</a></li>
-          <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i> Memoirs</a></li>
-          <li><a href = "/dashboard/lists"><i class="fas fa-clipboard-list"></i> List</a></li>
-          <li><a href = "/dashboard/feedbacks"><i class="fas fa-clipboard-list"></i>Feedbacks</a></li>
-          <li><a href = "/"><i class="fa fa-home"></i> Home</a></li>
-        </ul>
-      </div>
+  <div class="page">
+    <div class="pageHeader">
+      <div class="title">Dashboard</div>
+      <div class="userPanel"><span class="username">Admin </span></div>
     </div>
+    <div class="main">
+      <div class="nav">
+        <div class="menu">
+          <div class="title">Navigation</div>
+          <ul>
+          	<li class="active"><a href="/dashboard/"><i class="fas fa-unlock-alt"></i> Dashboard</li>
+            <li><a href = "/dashboard/disorders"><i class="fas fa-th"></i> Disorders</li>
+            <li><a href = "/dashboard/posts"><i class="fa fa-signal"></i> Posts</a></li>
+            <li><a href = "/dashboard/memoirs"><i class="fa fa-tasks"></i> Memoirs</a></li>
+            <li><a href = "/dashboard/lists"><i class="fas fa-clipboard-list"></i> List</a></li>
+            <li><a href = "/dashboard/feedbacks"><i class="fas fa-clipboard-list"></i>Feedbacks</a></li>
+            <li><a href = "/"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>

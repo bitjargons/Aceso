@@ -1,28 +1,31 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose")
 
 var mseSchema = new mongoose.Schema({
+  student: {
+    
+  },
+  
   family: {
-    father {
+    father: {
       name: String,
       age: Number,
       job: String
     },
 
-    mother {
+    mother: {
       name: String,
       age: Number,
       job: String
     },
 
-    sibling {
+    sibling: {
     	name: String,
       age: Number,
       isElder: {
       	type: Boolean,
-      	default: false;
+      	default: false
       }
     },
-
     income: Number
   },
 
@@ -31,11 +34,11 @@ var mseSchema = new mongoose.Schema({
    		problem: String,
    		isStudentProblem: {
       	type: Boolean,
-      	default: false;
-      }
+      	default: false
+      },
    		isMentalProblem: {
       	type: Boolean,
-      	default: false;
+      	default: false
       }
    	}
   ],
@@ -45,7 +48,7 @@ var mseSchema = new mongoose.Schema({
 	   	problem: String,
 	  	isMentalProblem: {
       	type: Boolean,
-      	default: false;
+      	default: false
       }
 	  }
   ],
@@ -61,38 +64,37 @@ var mseSchema = new mongoose.Schema({
  			game: String,
  			played: {
       	type: Boolean,
-      	default: false;
+      	default: false
       },
  			reason: String
  		}
  	],
-
  	education: {
- 		highSchool {
+ 		highSchool: {
  			hasCompleted: {
       	type: Boolean,
-      	default: false;
+      	default: false
       },
  			fromSchool: String
  		},
 
- 		higherSecondary {
+ 		higherSecondary: {
  			hasCompleted: Boolean,
  			fromSchool: String
  		},
 
- 		diploma {
+ 		diploma: {
  			hasCompleted: {
       	type: Boolean,
-      	default: false;
+      	default: false
       },
  			fromCollege: String
  		},
 
- 		graduation {
+ 		graduation: {
  			hasCompleted: {
       	type: Boolean,
-      	default: false;
+      	default: false
       },
  			fromCollege: String
  		}
@@ -105,6 +107,6 @@ var mseSchema = new mongoose.Schema({
  		},
  		email: String
  	}
-});
+})
 
-module.exports = mongoose.model("mse", mseSchema);
+module.exports = mongoose.model("mse", mseSchema)

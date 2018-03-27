@@ -54,3 +54,7 @@ jQuery(document).ready(function($) {
 
 
 //=============================================================
+
+$(window).on('load',function(){
+    $('#flashmodal').modal('show');
+});
