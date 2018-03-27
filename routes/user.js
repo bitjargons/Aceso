@@ -4,13 +4,14 @@ var passport 	 = require("passport");
 var User 			 = require("../models/user");
 var Test       = require("../models/test");
 var Memoir 		 = require("../models/memoir");
+var Mse        = require("../models/mse");
 var async    	 = require("async");
 var nodemailer = require("nodemailer");
 var crypto 		 = require("crypto");
 var middleware = require("../middleware");
 //Changes has to be made for not letting anyone access verify page of any other user
 
-router.get("/users/:id", middleware.isVerified ,function(req, res) {
+router.get("/users/:id",middleware.isLoggedIn, middleware.isVerified ,function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {
       req.flash("error", "Something went wrong");
@@ -21,6 +22,52 @@ router.get("/users/:id", middleware.isVerified ,function(req, res) {
       })
     }
   })
+});
+
+router.get("/users/:id/mse",middleware.isLoggedIn, middleware.isVerified ,function(req, res) {
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong");
+      res.redirect("/");
+    } else {
+      res.render("users/mse", {user: foundUser});
+    }
+  })
+});
+
+router.post("/users/:id/mse",middleware.isLoggedIn, middleware.isVerified, function(req, res) {
+  console.log(req.body);
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong");
+      res.redirect("/");
+    } else {
+      var newMse = {
+        student: req.body.student,
+        family: {
+          father : req.body.father,
+          mother : req.body.mother,
+          sibling : req.body.sibling,
+          income : req.body.income
+        }
+      }
+      Mse.create(newMse, function(err, createdMse) {
+        if(err) {
+          req.flash("Something went wrong");
+          console.log(err);
+        } else {
+          foundUser.mse = createdMse._id;
+          createdMse.user.id = foundUser._id;
+          createdMse.user.email = foundUser._email;
+          createdMse.save();
+          foundUser.save();
+          console.log(createdMse);
+          console.log(foundUser);
+          res.render("/home")
+        }
+      })
+    }
+  });
 });
 
 router.post("/users/:id/test", middleware.isLoggedIn, function(req, res) {

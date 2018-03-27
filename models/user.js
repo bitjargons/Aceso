@@ -17,6 +17,10 @@ var userSchema = new mongoose.Schema({
     		ref: "Test"
     	}
     ],
+    mse: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Mse"
+    },
     fillDetailsToken: String,
     fillDetailsExpires: Date,
     isVerified: {type: Boolean, default: false},

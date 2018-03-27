@@ -1,15 +1,15 @@
 // To stop submitting multiple times
-$("form").submit(function () {
-    if ($(this).valid()) {
-        $(this).submit(function () {
-            return false;
-        });
-        return true;
-    }
-    else {
-        return false;
-    }
-});
+// $("form").submit(function () {
+//     if ($(this).valid()) {
+//         $(this).submit(function () {
+//             return false;
+//         });
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
+// });
 
 // Floating label headings for the contact form
 $(function() {
