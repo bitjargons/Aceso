@@ -1,0 +1,222 @@
+<% include ../partials/formheader %>
+	<div class="preview">
+	<!-- Trigger the modal with a button -->
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#mseModal">TEST :)</button>
+
+	<!-- Modal -->
+	<div id="mseModal" class="modal fade" role="dialog">
+  	<div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    	<div class="modal-content">
+     	 	<div class="modal-header">
+     	   	<button type="button" class="close" data-dismiss="modal">&times;</button>
+       		 	<h1 class="modal-title">Mental Status Exam</h1>
+      	</div>
+      		<!--Modal body-->
+     		<div class="modal-body">
+     		 	<form class="form-horizontal form" method="POST" id="personalHistory" action="/users/<%= user._id %>/mse" >
+     		 	<!--Personal details-->
+     		 		<!-- Student Name -->
+     		 		<div class="form-group">
+        			<label class="col-md-4 control-label" for="student_name">Name</label>
+       				<div class="col-md-4">
+           			 <input id="student_name" name="student[name]" type="text" placeholder="name" class="form-control input-md">
+            		 <span class="help-block">Please type in your Fullname</span>
+       				</div>
+       			</div>
+       			<!-- Select Date Of Birth -->
+       			<div class="form-group">
+        			<label class="col-md-4 control-label" for="student_bday">Birthdate</label>
+       				 <div class="col-md-4">
+           			 <input id="student_bday" name="student[bday]" type="date" class="form-control input-md">
+            		 <span class="help-block">Please type valid Birthdate</span>
+       				 </div>
+       			</div>
+        		<!-- Gender Input -->
+		        <div class="form-group">
+		          <label class="col-md-4 control-label" for="gender_radio">Gender</label>
+              <div class="col-md-4" id="gender_radio">
+                <p class="form-control">
+                  <label for="gender1">
+                  <input id="gender1" type="radio" name="student[gender]" value="male" checked>
+                  Male</label>
+                </p>
+                <p class="form-control">
+                  <label for="gender2">
+                  <input id="gender2" type="radio" name="student[gender]" value="female">
+                  Female</label>
+                </p>
+                <p class="form-control">
+                  <label for="gender3">
+                  <input id="gender3" type="radio" name="student[gender]" value="other">
+                  Other</label>
+                </p>
+              </div>
+		        </div>
+            <!-- Weight input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="weight">Weight</label>
+                <div class="col-md-4">
+                    <input id="weight" name="student[weight]" type="number" class="form-control input-md" min="20" max="150">
+                </div>
+            </div>
+            <!-- Permanent Address Input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="address">Address</label>
+              <div class="col-md-4">
+                <input id="address" name="student[address]" type="text" placeholder="address" class="form-control input-md">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="pincode">Pincode</label>
+                <div class="col-md-4">
+                  <input id="pincode" name="student[pincode]" type="text" placeholder="pincode" class="form-control input-md">
+                </div>
+            </div>
+          <!--Personal details end-->
+
+          <!--Family details -->
+            <!-- Father's details -->
+            <!-- Fathers name -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="father_name">Father's Name</label>
+              <div class="col-md-4">
+                  <input id="father_name" name="father[name]" type="text" placeholder="Father's Name" class="form-control input-md">
+                  <span class="help-block">Please type full name</span>
+              </div>
+            </div>
+            <!--Father Age-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="father_age">Father's Age</label>
+              <div class="col-md-4">
+                  <input id="father_age" name="father[age]" type="number" placeholder="Father's Age" class="form-control input-md" min="20">
+              </div>
+            </div>
+            <!--Father Job-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="father_job">Father's Occupation</label>
+              <div class="col-md-4">
+                <select class="form-control" id="father_job" name="father[job]">
+                  <option>Private Employee</option>
+                  <option>Govt. Employee</option>
+                  <option>Businessman</option>
+                  <option>Farmer</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <!-- Father details end -->
+            <!-- Mother's details -->
+              <!-- Mother's name -->
+              <div class="form-group">
+                  <label class="col-md-4 control-label" for="mother_name">Mother's Name</label>
+                  <div class="col-md-4">
+                      <input id="mother_name" name="mother[name]" type="text" placeholder="Mother's Name" class="form-control input-md">
+                      <span class="help-block">Please type full name</span>
+                  </div>
+              </div>
+              <!--Mother Age-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="mother_age">Mother's Age</label>
+                <div class="col-md-4">
+                    <input id="mother_age" name="mother[age]" type="number" placeholder="Mother's Age" class="form-control input-md" min="20">
+                </div>
+              </div>
+              <!--Mother Job-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="mother_job">Mother's Occupation</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="mother_job" name="mother[job]">
+                      <option>Private Employee</option>
+                      <option>Govt. Employee</option>
+                      <option>Businessman</option>
+                      <option>Farmer</option>
+                      <option>Other</option>
+                    </select>
+                </div>
+              </div>
+              <!-- Mother Details end -->
+              <!-- Sibling Details -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="sibling">Siblings</label>
+                <div class="col-md-4">
+                  <select class="form-control" id="sibling" name="sibling[details]">
+                    <option>Elder Sibling</option>
+                    <option>Younger Sibling</option>
+                    <option>Both</option>
+                    <option>Twin</option>
+                    <option>Single Child</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Sibling Details -->
+              <div class="form-group">
+              	<label class="col-md-4 control-label" for="annual_income">Annual Income</label>
+              	<div class="col-md-4">
+              		<input type="number" name="income" placeholder="annual income">
+              	</div>
+              </div>
+            <!-- Family details end -->
+            <!-- Medical history -->
+              <!-- <!--Personal Medical history-->
+<!--               <div class="form-group">
+                <label class="col-md-4 control-label" for="health_issue">Major Health Issue?</label>
+                <div class="col-md-4" id="health_issue">
+                  <p class="form-control">
+                    <label>
+                    <input id="yes" type="radio" name="student[selfhealthissue]" value="true">Yes</label>
+                  </p>
+                  <p class="form-control">
+                    <label><input id="gender2" type="radio" name="student[selfhealthissue]" value="false">No</label>
+                  </p>
+                </div>
+              </div>
+          	  <div class="form-group">
+                <label class="col-md-4 control-label" for="health_issue_specify">Specify</label>
+                <div class="col-md-4" id="health_issue_specify">
+                  <div class="form-check">
+                    <input id="selfissuetype1" name="selfissuetype1" type="checkbox" value="mental">
+                    <label for="selfissuetype1">Mental health issue</label>
+                  </div>
+                  <div class="form-check">
+                    <input id="selfissuetype2" name="selfissuetype2" type="checkbox" value="physical">
+                    <label for="selfissuetype2">Physical health issue</label>
+                  </div>
+                  <label for="selfissuedesc">Describe</label><br/>
+                  <textarea id="selfissuedesc" name="student[selfissuedesc]" rows="5" value="Describe"></textarea> 
+                </div>
+              </div>
+              <!-- Personal Medical History ends -->
+            <!-- Medical History Ends -->
+            <!-- Personal History -->
+              <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="personalquestion">Additional Information</label>
+                <div  class="col-md-4" id="personalquestion">
+                  <div>
+                    <input type="checkbox" name="question1" id="personalquestion1">
+                    <label class="form-check-label" for="personalquestion1">Question1</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" name="question2" id="personalquestion2">
+                    <label class="form-check-label" for="personalquestion2">Question2</label>
+                  </div>
+                </div>
+              </div> -->
+            <!--  Personal History -->
+       	   </div> --> -->
+      		<!--Modal footer-->
+      		<div class="modal-footer">
+         		<div class="form-group">
+			        <div class="col-md-8">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+              </div>
+          	</div>
+      		</div>  
+          </form>	
+       	</div>
+      </div>
+    </div>
+   </div>
+  </div>
+<% include ../partials/footer %>
