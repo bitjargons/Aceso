@@ -1,7 +1,7 @@
 <% include ../partials/materialheader.ejs %>  
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
+<div class="<%= disorder.name.toLowerCase() %>">
   <!--<ul class="nav nav-pills">
     <% disorders.forEach(function(eachDisorder) { %>
       <li role="presentation" class="<%= typeof disorder !== 'undefined' && disorder.name === eachDisorder.name ? 'active' : '' %>"><a href="/disorders/<%= eachDisorder._id %>"> <%= eachDisorder.name %> </a></li>
@@ -12,13 +12,13 @@
     <div class="col s6 l3">
       <div class="card">
         <div class="card-title">
-          <span class="col s6"><%= disorder.name %></span>
-          <% if(currentUser && currentUser.isAdmin){ %>
-          <a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit"><i class="material-icons">edit</i></a>
-          <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form col s3">
-            <button class="btn btn-danger col s12"><i class="material-icons">delete</i></button>
+          <%= disorder.name %>
+          <!-- <% if(currentUser && currentUser.isAdmin){ %>
+          <a class="btn btn-warning" href="/disorders/<%= disorder._id %>/edit"><span class="glyphicon glyphicon-pencil"></span></a>
+          <form action="/disorders/<%= disorder._id %>?_method=DELETE" method="POST" class="delete-form">
+            <button class="btn btn-danger"><i class="material-icons">add</i></button>
           </form>
-          <% } %>
+          <% } %> -->
         </div>
         <div class="card-image">
           <img src="<%= disorder.image %>">
@@ -28,9 +28,7 @@
               <a href="/disorders/<%= disorder._id %>/posts/new" class="btn btn-success"><i class=" large material-icons">add</i> Add a Post</a>
             <% } %>
           </div>
-          <br>
         </div>
-        <br>  
       </div>
     <div class="col l9">
       <div class="row" style="display: flex; flex-wrap: wrap;">
@@ -39,7 +37,7 @@
         <% } else { %>
         <% disorder.posts.forEach(function(post) { %>
           <div class="col s6">
-            <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>">
+            <a href="/disorders/<%= disorder._id %>/posts/<%= post._id %>" class="thumbnail posts">
               <%= post.symptom %>
             </a>
           </div>

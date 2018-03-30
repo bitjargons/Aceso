@@ -1,33 +1,38 @@
-<% include ../partials/formheader %>
+<% include ../partials/header %>
+<div class="container left-align">
 	<div class="row">
 		<h1 style="text-align: center;">Create a New Feedback</h1>
 		<div style="width: 30%; margin: 25px auto;">
-			<form action="/feedbacks" method="POST">		
-				<div class="form-group">
-					<input class="form-control" type="text" name="feedback" placeholder="Give Your Feedback Here">
-				</div>
-				<label class="radio-inline">
- 					<input type="radio" name="rating" id="inlineRadio1" value="1"> 1 Star	
- 				</label>
-				<label class="radio-inline">
-  				<input type="radio" name="rating" id="inlineRadio2" value="2">
-  				 2 Star 
-  			</label>
-				<label class="radio-inline">
-  				<input type="radio" name="rating" id="inlineRadio3" value="3"> 3 Star
-  			</label>				
-  			<label class="radio-inline">
- 					<input type="radio" name="rating" id="inlineRadio4" value="4"> 4 Star
- 				</label>
-				<label class="radio-inline">
-  				<input type="radio" name="rating" id="inlineRadio5" value="5">5 Star
-  			</label>
-				<div class="form-group">
-					<button class="btn btn-lg btn-primary btn-block">Submit!!</button>
-				</div>
+			
+			<form action="/feedbacks" method="POST">
+				
+								<div class="form-group">
+									<input class="form-control" type="text" name="feedback" placeholder="Give Your Feedback Here">
+								</div>
+								<label class="radio-inline">
+				 					<input type="radio" name="rating" id="inlineRadio1" value="1">1 Star	
+				 				</label>
+								<label class="radio-inline">
+				  				<input type="radio" name="rating" id="inlineRadio2" value="2">2 Star 
+				  				</label>
+								<label class="radio-inline">
+				  				<input type="radio" name="rating" id="inlineRadio3" value="3">3 Star
+				  				</label>				
+				  				<label class="radio-inline">
+				 					<input type="radio" name="rating" id="inlineRadio4" value="4">4 Star
+				 				</label>
+								<label class="radio-inline">
+				  				<input type="radio" name="rating" id="inlineRadio5" value="5">5 Star
+				  				</label>
+								<div class="form-group">
+									<button class="btn btn-lg btn-primary btn-block">Submit!!</button>
+								</div>
+								
 			</form>
+		
 			<a href="/home">Go Back</a>
 		</div>
+	</div>
 	</div>
 <% include ../partials/footer %>
 

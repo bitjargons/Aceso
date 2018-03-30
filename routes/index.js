@@ -3,6 +3,7 @@ var router  	 = express.Router();
 var passport	 = require('passport');
 var User 			 = require('../models/user');
 var Memoir  	 = require('../models/memoir');
+var disorder   = require('../models/disorder');
 var middleware = require('../middleware');
 var {isLoggedIn, checkUserMemoir, checkUserComment, isVerified, isAdmin, checkDisorder } = middleware;
 
@@ -73,4 +74,5 @@ router.get('/logout', function(req, res){
 router.get('/about', function(req, res) {
   res.render('about')
 });
+
 module.exports = router;
